@@ -1,8 +1,8 @@
 <?php
 
-namespace backend\tests\functional;
+namespace admin\tests\functional;
 
-use backend\tests\FunctionalTester;
+use admin\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 
 /**
@@ -26,7 +26,7 @@ class LoginCest
             ]
         ];
     }
-    
+
     /**
      * @param FunctionalTester $I
      */
