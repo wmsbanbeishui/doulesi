@@ -13,6 +13,8 @@ use pc\models\ResetPasswordForm;
 use pc\models\SignupForm;
 use pc\models\ContactForm;
 
+use yii\captcha\CaptchaAction;
+
 /**
  * Site controller
  */
@@ -25,25 +27,27 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+				'class' => 'yii\filters\AccessControl',
                 'rules' => [
                     [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
+						'allow' => true,
+						'roles' => ['@'],
+						'actions' => ['index', 'logout', 'login'],
                     ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
+					[
+						'allow' => true,
+						'roles' => ['?'],
+						'actions' => ['login'],
+					],
+					[
+						'allow' => true,
+						'actions' => [
+							'error',
+							'captcha',
+							'find-password',
+							'send-verify-code',
+						],
+					],
                 ],
             ],
         ];
@@ -59,8 +63,13 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+				'class' => CaptchaAction::className(),
+				'height' => 30,
+				'width' => 120,
+				'padding' => 1,
+				'offset' => 6,
+				'minLength' => 4,
+				'maxLength' => 4,
             ],
         ];
     }
@@ -72,7 +81,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+		if (Yii::$app->user->isGuest) {
+			return $this->redirect('login');
+		}
+		return $this->renderPartial('index');
     }
 
     /**
