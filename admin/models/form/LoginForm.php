@@ -1,6 +1,7 @@
 <?php
 namespace admin\models\form;
 
+use common\models\table\Admin;
 use Yii;
 use yii\base\Model;
 
@@ -11,9 +12,21 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
-    public $rememberMe = true;
+	public $verifyCode;
 
-    private $_user;
+    private $_user = false;
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'username' => '用户名',
+			'password' => '密码',
+			'verifyCode' => '验证码',
+		];
+	}
 
 
     /**
@@ -22,12 +35,10 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+            [['username', 'password', 'verifyCode'], 'required'],
+			['username', 'string', 'max' => 40],
             ['password', 'validatePassword'],
+			[['verifyCode'], 'captcha', 'captchaAction' => '/site/captcha'],
         ];
     }
 
@@ -42,9 +53,9 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            /*if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }*/
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError('username', '用户名或密码错误');
+            }
         }
     }
 
@@ -56,21 +67,36 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+			$user = $this->getUser();
+			return Yii::$app->user->login($user, 86400);
         }
 
         return false;
     }
 
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
     protected function getUser()
     {
-        if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+        if ($this->_user === false) {
+			$email = '';
+			$mobile = '';
+			$username = '';
+
+			if (is_numeric($this->username)) {
+				$mobile = $this->username;
+			} elseif (strstr($this->username, '@')) {
+				$email = $this->username;
+			} else {
+				$username = $this->username;
+			}
+
+			$this->_user = Admin::find()
+				->where(['status' => Admin::STATUS_ENABLE])
+				->andFilterWhere([
+					'email' => $email,
+					'mobile' => $mobile,
+					'username' => $username
+				])
+				->one();
         }
 
         return $this->_user;
