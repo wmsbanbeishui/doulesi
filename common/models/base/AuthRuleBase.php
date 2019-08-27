@@ -2,6 +2,7 @@
 
 namespace common\models\base;
 
+use common\models\table\AuthItem;
 use Yii;
 
 /**
@@ -14,10 +15,10 @@ use Yii;
  *
  * @property AuthItem[] $authItems
  */
-class AuthRule extends \common\extensions\ActiveRecord
+class AuthRuleBase extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function tableName()
     {
@@ -25,7 +26,7 @@ class AuthRule extends \common\extensions\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
@@ -39,7 +40,7 @@ class AuthRule extends \common\extensions\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function attributeLabels()
     {

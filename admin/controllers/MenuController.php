@@ -35,6 +35,9 @@ class MenuController extends AuthController
         $model->pid = $pid;
 
         if ($model->load(Yii::$app->request->post())) {
+        	if (empty($model->uri)) {
+        		$model->uri = null;
+			}
             if ($model->save()) {
                 Message::setSuccessMsg('添加成功');
                 return $this->redirect(['index', 'id' => $model->id]);

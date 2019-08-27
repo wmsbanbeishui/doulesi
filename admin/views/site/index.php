@@ -58,7 +58,7 @@ if (strpos($_SERVER['HTTP_HOST'], '.test.')) {
 		<ul>
 			<?php foreach ($menu as $item) : ?>
 				<li>
-					<a><?= $item['name'] ?></a>
+					<a style="text-decoration: none"><?= $item['name'] ?></a>
 				</li>
 			<?php endforeach ?>
 		</ul>

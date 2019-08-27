@@ -33,7 +33,6 @@ class Admin extends AdminBase implements IdentityInterface {
 	public function rules() {
 		return array_merge(parent::rules(), [
 			['mobile', MobileValidator::className()],
-			['email', 'email'],
 			['status', 'in', 'range' => [self::STATUS_ENABLE, self::STATUS_DISABLE]],
 		]);
 	}
@@ -41,6 +40,11 @@ class Admin extends AdminBase implements IdentityInterface {
 	public function attributeLabels()
 	{
 		return array_merge(parent::attributeLabels(), [
+			'username' => '用户名',
+			'realname' => '真实名',
+			'mobile' => '手机号',
+			'password' => '密码',
+			'create_time' => '创建时间',
 			'status' => '状态',
 		]);
 	}

@@ -10,13 +10,11 @@ use Yii;
  * @property string $item_name
  * @property string $user_id
  * @property int $created_at
- *
- * @property AuthItem $itemName
  */
-class AuthAssignment extends \common\extensions\ActiveRecord
+class AuthAssignmentBase extends \common\extensions\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function tableName()
     {
@@ -24,7 +22,7 @@ class AuthAssignment extends \common\extensions\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
@@ -33,12 +31,11 @@ class AuthAssignment extends \common\extensions\ActiveRecord
             [['created_at'], 'integer'],
             [['item_name', 'user_id'], 'string', 'max' => 64],
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function attributeLabels()
     {
@@ -47,13 +44,5 @@ class AuthAssignment extends \common\extensions\ActiveRecord
             'user_id' => 'User ID',
             'created_at' => 'Created At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemName()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
     }
 }

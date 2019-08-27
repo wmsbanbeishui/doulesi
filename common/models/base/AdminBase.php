@@ -11,13 +11,13 @@ use Yii;
  * @property string $username
  * @property string $realname
  * @property string $password 密码
- * @property int $mobile 手机号码
+ * @property string $mobile 手机号码
  * @property string $avatar 用户头像
  * @property int $status 状态：1 正常 2 禁用
  * @property string $create_time 创建时间
  * @property string $update_time 更新时间
  */
-class AdminBase extends \yii\db\ActiveRecord
+class AdminBase extends \common\extensions\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,10 +34,9 @@ class AdminBase extends \yii\db\ActiveRecord
     {
         return [
             [['mobile'], 'required'],
-            [['mobile'], 'integer'],
+            [['mobile', 'status'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
             [['username', 'realname', 'password', 'avatar'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 1],
         ];
     }
 
