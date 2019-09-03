@@ -1,38 +1,51 @@
 <?php
 
+use common\helpers\Render;
+use common\models\table\Category;
+use common\services\LevelService;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\search\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
+$this->title = '类别列表';
 $this->params['breadcrumbs'][] = $this->title;
+
+$gridColumns = [
+	'id',
+	'name',
+	'letter',
+	[
+		'attribute' => 'level',
+		'value' => function ($model) {
+			return LevelService::getNameById($model->level);
+		}
+	],
+	[
+		'attribute' => 'status',
+		'value' => function ($model) {
+			return Category::statusMap($model->status);
+		}
+	],
+	'order_index',
+	'create_time',
+	[
+		'class' => 'yii\grid\ActionColumn',
+		'template' => '{update}{delete}',
+	],
+];
 ?>
 <div class="category-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('添加分类', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'leverl',
-            'status',
-            'create_time',
-            //'update_time',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	<?= Render::gridView([
+		'dataProvider' => $dataProvider,
+		'columns' => $gridColumns,
+	]); ?>
 </div>

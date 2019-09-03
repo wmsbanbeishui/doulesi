@@ -1,5 +1,6 @@
 <?php
 
+use common\models\table\Level;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,21 +15,19 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
+	<div class="pl form-inline">
 
-    <?= $form->field($model, 'id') ?>
+		<?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'name') ?>
+		<?= $form->field($model, 'status')->dropDownlist(Level::statusMap(), ['prompt' => '全部']) ?>
 
-    <?= $form->field($model, 'status') ?>
+		<div class="form-group">
+			<?= Html::submitButton('搜索', ['class' => 'btn btn-primary']) ?>
+			<?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
+			<div class="help-block"></div>
+		</div>
 
-    <?= $form->field($model, 'create_time') ?>
-
-    <?= $form->field($model, 'update_time') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
+	</div>
 
     <?php ActiveForm::end(); ?>
 

@@ -13,7 +13,7 @@ use Yii;
  * @property AuthItem $parent0
  * @property AuthItem $child0
  */
-class AuthItemAuthItemChild extends \common\extensions\ActiveRecord
+class AuthItemChild extends \common\extensions\ActiveRecord
 {
     /**
      * {@inheritdoc}

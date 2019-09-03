@@ -1,5 +1,10 @@
 <?php
 
+use common\helpers\Render;
+use common\models\table\Level;
+use common\services\AdminService;
+use common\services\CategoryService;
+use common\services\LevelService;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,36 +12,53 @@ use yii\grid\GridView;
 /* @var $searchModel admin\models\search\FinanceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Finances';
+$this->title = '账单';
 $this->params['breadcrumbs'][] = $this->title;
+
+$gridColumns = [
+	'id',
+	'date',
+	[
+		'attribute' => 'admin_id',
+		'value' => function ($model) {
+			return AdminService::getNameById($model->admin_id);
+		}
+	],
+	[
+		'attribute' => 'level_id',
+		'value' => function ($model) {
+			return LevelService::getNameById($model->level_id);
+		}
+	],
+	[
+		'attribute' => 'cat_id',
+		'value' => function ($model) {
+			return CategoryService::getNameById($model->cat_id);
+		}
+	],
+	'cost',
+	'create_time',
+	'remark',
+	[
+		'class' => 'yii\grid\ActionColumn',
+		'template' => '{update}',
+	],
+];
 ?>
 <div class="finance-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Finance', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('添加明细', ['create'], ['class' => 'btn btn-success']) ?>
+		<span style="color:red; padding-left: 20px">总计：<?= $sum_cost ?></span>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'admin_id',
-            'level_id',
-            'cat_id',
-            'cost',
-            //'date',
-            //'remark',
-            //'status',
-            //'create_time',
-            //'update_time',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	<?= Render::gridView([
+		'dataProvider' => $dataProvider,
+		'columns' => $gridColumns,
+		'export_columns' => $gridColumns,
+		'export' => [
+			'filename' => 'finance'.date('Y-m-d'),
+		],
+	]); ?>
 </div>

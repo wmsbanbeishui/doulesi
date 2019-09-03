@@ -19,11 +19,13 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "kartik-v/yii2-grid": "*",
-        "kartik-v/yii2-export": "@dev",
+        "kartik-v/yii2-export": "*",
         "yiisoft/yii2-redis": "^2.0",
         "kartik-v/yii2-widget-activeform": "^1.5",
         "kartik-v/yii2-widget-datepicker": "^1.4",
-        "kartik-v/yii2-widget-datetimepicker": "*"
+        "kartik-v/yii2-widget-datetimepicker": "*",
+        "liyunfang/yii2-widget-linkpager": "^1.0",
+        "kartik-v/yii2-date-range": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

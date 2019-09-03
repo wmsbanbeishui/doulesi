@@ -18,8 +18,8 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'leverl', 'status'], 'integer'],
-            [['name', 'create_time', 'update_time'], 'safe'],
+            [['id', 'level', 'status'], 'integer'],
+            [['name', 'create_time', 'letter', 'update_time'], 'safe'],
         ];
     }
 
@@ -47,6 +47,7 @@ class CategorySearch extends Category
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort' => ['defaultOrder' => ['order_index' => SORT_DESC, 'id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -60,7 +61,8 @@ class CategorySearch extends Category
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'leverl' => $this->leverl,
+            'level' => $this->level,
+			'letter' => $this->letter,
             'status' => $this->status,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,

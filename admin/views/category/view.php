@@ -1,5 +1,7 @@
 <?php
 
+use common\models\table\Category;
+use common\services\LevelService;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,22 +9,15 @@ use yii\widgets\DetailView;
 /* @var $model common\models\table\Category */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '类别', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="category-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+		<?= Html::a('添加分类', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -30,8 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'leverl',
-            'status',
+            [
+            	'attribute' => 'level',
+				'value' => function ($model) {
+    				return LevelService::getNameById($model->level);
+				}
+			],
+			[
+				'attribute' => 'status',
+				'value' => function ($model) {
+    				return Category::statusMap($model->status);
+				}
+			],
             'create_time',
             'update_time',
         ],

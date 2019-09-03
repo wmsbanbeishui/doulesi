@@ -18,8 +18,8 @@ class FinanceSearch extends Finance
     public function rules()
     {
         return [
-            [['id', 'admin_id', 'level_id', 'cat_id', 'status'], 'integer'],
-            [['cost'], 'number'],
+            [['id', 'admin_id', 'level_id', 'cat_id', 'status'], 'safe'],
+            [['cost'], 'safe'],
             [['date', 'remark', 'create_time', 'update_time'], 'safe'],
         ];
     }
@@ -38,7 +38,6 @@ class FinanceSearch extends Finance
      *
      * @param array $params
      *
-     * @return ActiveDataProvider
      */
     public function search($params)
     {
@@ -46,17 +45,15 @@ class FinanceSearch extends Finance
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+
 
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			echo '111';exit;
+		}
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -65,14 +62,27 @@ class FinanceSearch extends Finance
             'level_id' => $this->level_id,
             'cat_id' => $this->cat_id,
             'cost' => $this->cost,
-            'date' => $this->date,
             'status' => $this->status,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);
 
+		$query->timeRangeFilter('date', $this->date);
+
         $query->andFilterWhere(['like', 'remark', $this->remark]);
 
-        return $dataProvider;
+		$sum_query = clone $query;
+		$sum_query->select(['sum_cost' => 'SUM(cost)']);
+		$sum_cost = $sum_query->scalar();
+
+		//echo $query->createCommand()->getRawSql();exit;
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => ['pageSize' => 15],
+			'sort' => ['defaultOrder' => ['date' => SORT_DESC, 'id' => SORT_DESC]],
+		]);
+
+        return ['dataProvider' => $dataProvider, 'sum_cost' => $sum_cost];
     }
 }

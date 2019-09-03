@@ -4,6 +4,7 @@ namespace admin\models;
 
 use common\models\table\Admin as AdminTalbe;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 class Admin extends AdminTalbe
 {
@@ -26,5 +27,13 @@ class Admin extends AdminTalbe
 		]);
 
 		return $dataProvider;
+	}
+
+	public static function map()
+	{
+		$query = self::find()->select(['id', 'realname'])->where(['status' => 1])->orderBy(["FIELD(`id`,3,2,1)"=>true]);
+		$data = $query->all();
+		$map = ArrayHelper::map($data, 'id', 'realname');
+		return $map;
 	}
 }

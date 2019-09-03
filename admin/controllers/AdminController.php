@@ -8,10 +8,9 @@ use admin\models\Auth;
 use admin\models\form\PasswordForm;
 use common\helpers\FileHelper;
 use common\helpers\Message;
-use common\models\base\AuthAssignment;
-use common\models\base\AuthItem;
-use common\models\table\AuthItemChild;
-use common\models\base\AuthItemAuthItemChild;
+use common\models\base\AuthAssignmentBase;
+use common\models\base\AuthItemBase;
+use common\models\base\AuthItemChild;
 use common\services\AdminLogService;
 use Yii;
 use yii\filters\VerbFilter;
@@ -185,8 +184,8 @@ class AdminController extends AuthController
 
 	public function actionSetRoles($id)
 	{
-		$all_role = AuthItem::find(['name', 'description'])->where(['type' => 1])->all();
-		$my_role = AuthAssignment::find(['name'])->where(['user_id' => $id])->column();
+		$all_role = AuthItemBase::find(['name', 'description'])->where(['type' => 1])->all();
+		$my_role = AuthAssignmentBase::find(['name'])->where(['user_id' => $id])->column();
 
 		return $this->render('set_roles', [
 			'id' => $id,
@@ -319,8 +318,8 @@ class AdminController extends AuthController
 
 	public function actionGetUserAuth($id)
 	{
-		$roles = AuthAssignment::find()->select(['item_name'])->where(['user_id' => $id])->column();
-		$child = AuthItemAuthItemChild::find()->select('child')->where(['parent' => $roles])->column();
+		$roles = AuthAssignmentBase::find()->select(['item_name'])->where(['user_id' => $id])->column();
+		$child = AuthItemChild::find()->select('child')->where(['parent' => $roles])->column();
 		$list = array_unique($child);
 		$items = [];
 		foreach ($list as $item) {

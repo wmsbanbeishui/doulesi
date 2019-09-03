@@ -34,12 +34,11 @@ class FinanceBase extends \common\extensions\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'admin_id', 'date'], 'required'],
-            [['id', 'admin_id', 'level_id', 'cat_id', 'status'], 'integer'],
+            [['admin_id', 'date'], 'required'],
+            [['admin_id', 'level_id', 'cat_id', 'status'], 'integer'],
             [['cost'], 'number'],
             [['date', 'create_time', 'update_time'], 'safe'],
             [['remark'], 'string', 'max' => 30],
-            [['id'], 'unique'],
         ];
     }
 
@@ -50,15 +49,15 @@ class FinanceBase extends \common\extensions\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_id' => 'Admin ID',
-            'level_id' => 'Level ID',
-            'cat_id' => 'Cat ID',
-            'cost' => 'Cost',
-            'date' => 'Date',
-            'remark' => 'Remark',
-            'status' => 'Status',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'admin_id' => '用户ID',
+            'level_id' => '等级ID',
+            'cat_id' => '类别ID',
+            'cost' => '金额',
+            'date' => '账单日期',
+            'remark' => '备注',
+            'status' => '状态 1 正常 2 禁用',
+            'create_time' => '创建时间',
+            'update_time' => '更新时间',
         ];
     }
 }

@@ -5,10 +5,10 @@ use yii\widgets\ActiveForm;
 
 $this->title = '权限管理';
 $this->params['breadcrumbs'][] = $this->title;
-$this->registerCssFile(CDN_URL.'/static/admin/css/index.css?'.VER);
-$this->registerCssFile(CDN_URL.'/static/admin/css/tree_three.css?'.VER);
-$this->registerJsFile(CDN_URL.'/static/admin/js/jquery/2.2.4/jquery.min.js?'.VER);
-$this->registerJsFile(CDN_URL.'/static/admin/js/user_permiss.js?'.VER);
+$this->registerCssFile('/static/admin/css/index.css');
+$this->registerCssFile('/static/admin/css/tree_three.css');
+$this->registerJsFile('/static/admin/js/jquery/2.2.4/jquery.min.js');
+$this->registerJsFile('/static/admin/js/user_permiss.js');
 ?>
 <div class="menus">
 

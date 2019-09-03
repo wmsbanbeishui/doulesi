@@ -5,6 +5,8 @@ namespace admin\controllers;
 use Yii;
 use common\models\table\Finance;
 use admin\models\search\FinanceSearch;
+use admin\models\search\FinanceReportFormSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,11 +38,12 @@ class FinanceController extends Controller
     public function actionIndex()
     {
         $searchModel = new FinanceSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $data = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['dataProvider'],
+			'sum_cost' => $data['sum_cost'],
         ]);
     }
 
@@ -66,8 +69,11 @@ class FinanceController extends Controller
     {
         $model = new Finance();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+        	if (!$model->save()) {
+        		var_dump($model->getFirstErrors());exit;
+			}
+            return $this->redirect('create');
         }
 
         return $this->render('create', [

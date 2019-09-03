@@ -3,8 +3,8 @@
 namespace admin\models;
 
 use common\models\base\AdminMenuBase;
-use common\models\base\AuthAssignment;
-use common\models\base\AuthItemAuthItemChild;
+use common\models\base\AuthAssignmentBase;
+use common\models\base\AuthItemChild;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -167,8 +167,8 @@ class AdminMenu extends AdminMenuBase {
             return $menu;
         }
 
-        $item = AuthAssignment::find()->select(['item_name'])->where(['user_id' => $user_id])->column();
-        $child = AuthItemAuthItemChild::find()->select('child')->where(['parent' => $item])->column();
+        $item = AuthAssignmentBase::find()->select(['item_name'])->where(['user_id' => $user_id])->column();
+        $child = AuthItemChild::find()->select('child')->where(['parent' => $item])->column();
         array_unique($child);
 
         foreach ($menu as $key => $val) {

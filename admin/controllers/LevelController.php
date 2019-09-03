@@ -66,7 +66,10 @@ class LevelController extends Controller
     {
         $model = new Level();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+        	if (!$model->save()) {
+				echo $model->getFirstErrors();exit;
+			}
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
