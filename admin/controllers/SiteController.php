@@ -3,9 +3,8 @@ namespace admin\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
+use yii\captcha\CaptchaAction;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
 
 /**
  * Site controller
@@ -18,26 +17,25 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => [
+							'index',
+						],
+						'roles' => ['@'],
+					],
+					[
+						'allow' => true,
+						'actions' => [
+							'error',
+							'captcha',
+						],
+					],
+				],
+			],
         ];
     }
 
@@ -50,6 +48,15 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+			'captcha' => [
+				'class' => CaptchaAction::className(),
+				'height' => 30,
+				'width' => 120,
+				'padding' => 1,
+				'offset' => 6,
+				'minLength' => 4,
+				'maxLength' => 4,
+			],
         ];
     }
 
@@ -61,29 +68,6 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
-    }
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**
