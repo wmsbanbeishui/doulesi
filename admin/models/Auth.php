@@ -2,9 +2,9 @@
 
 namespace admin\models;
 
-use common\models\base\AuthItem;
+use common\models\table\AuthItem;
 use common\models\table\AdminAuthMenu;
-use common\models\base\AuthAssignment;
+use common\models\table\AuthAssignment;
 
 class Auth extends AuthItem
 {

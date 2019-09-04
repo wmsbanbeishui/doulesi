@@ -17,6 +17,14 @@ class AuthItem extends AuthItemBase
 		]);
 	}
 
+	public function attributeLabels()
+	{
+		return array_merge(parent::attributeLabels(), [
+			'name' => '权限名称',
+			'description' => '权限描述'
+		]);
+	}
+
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */

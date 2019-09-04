@@ -266,7 +266,7 @@ class AdminController extends AuthController
 		// 去除不允许修改的字段
 		if ($post_data) {
 			foreach ($post_data['Admin'] as $key => $item) {
-				if ($key != 'username' && $key != 'email') {
+				if ($key != 'username') {
 					unset($post_data['Admin'][$key]);
 				}
 			}
@@ -282,9 +282,7 @@ class AdminController extends AuthController
 			if (empty($model->username)) {
 				$model->username = null;
 			}
-			if (empty($model->email)) {
-				$model->email = null;
-			}
+
 			if ($model->save()) {
 				Message::setSuccessMsg('修改成功');
 				return $this->redirect(['mine']);

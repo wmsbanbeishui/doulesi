@@ -49,8 +49,6 @@ if (!empty($model->avatar)) {
 
 	<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
 	<div class="form-group">
 		<div class="col-lg-offset-1 col-lg-11">
 			<?= Html::submitButton('修改', ['class' => 'btn btn-primary btn-sm']) ?>

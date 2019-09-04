@@ -10,10 +10,6 @@ $this->title = '修改密码';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-update">
-	<?php $pwd_expired = Yii::$app->user->identity->pwd_expired; ?>
-	<?php if ($pwd_expired && $pwd_expired < date('Y-m-d H:i:s') ): ?>
-	<p><span style="color: red">首次登陆必须重置密码</span></p>
-	<?php endif ?>
 
 	<?php $form = ActiveForm::begin([
 		'options' => [
