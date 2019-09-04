@@ -30,11 +30,10 @@ class RecordBase extends \common\extensions\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'admin_id', 'record', 'date'], 'required'],
-            [['id', 'admin_id'], 'integer'],
+            [['admin_id', 'record', 'date'], 'required'],
+            [['admin_id'], 'integer'],
             [['date', 'create_time', 'update_time'], 'safe'],
             [['record'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 
@@ -45,11 +44,11 @@ class RecordBase extends \common\extensions\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_id' => 'Admin ID',
-            'record' => 'Record',
-            'date' => 'Date',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'admin_id' => '用户ID',
+            'record' => '记事',
+            'date' => '记事日期',
+            'create_time' => '创建时间',
+            'update_time' => '更新时间',
         ];
     }
 }

@@ -2,17 +2,17 @@
 
 namespace admin\controllers;
 
-use Yii;
 use common\models\table\Category;
+use admin\controllers\base\AuthController;
 use admin\models\search\CategorySearch;
-use yii\web\Controller;
+use Yii;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends AuthController
 {
     /**
      * @inheritdoc

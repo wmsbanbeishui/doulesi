@@ -2,17 +2,17 @@
 
 namespace admin\controllers;
 
-use common\models\table\Level;
-use admin\models\search\LevelSearch;
-use admin\controllers\base\AuthController;
 use Yii;
+use common\models\table\Record;
+use admin\models\search\RecordSearch;
+use admin\controllers\base\AuthController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * LevelController implements the CRUD actions for Level model.
+ * RecordController implements the CRUD actions for Record model.
  */
-class LevelController extends AuthController
+class RecordController extends AuthController
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class LevelController extends AuthController
     }
 
     /**
-     * Lists all Level models.
+     * Lists all Record models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new LevelSearch();
+        $searchModel = new RecordSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class LevelController extends AuthController
     }
 
     /**
-     * Displays a single Level model.
+     * Displays a single Record model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,19 +58,19 @@ class LevelController extends AuthController
     }
 
     /**
-     * Creates a new Level model.
+     * Creates a new Record model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Level();
+        $model = new Record();
 
         if ($model->load(Yii::$app->request->post())) {
         	if (!$model->save()) {
-				echo $model->getFirstErrors();exit;
+				var_dump($model->getFirstErrors());exit;
 			}
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('create');
         }
 
         return $this->render('create', [
@@ -79,7 +79,7 @@ class LevelController extends AuthController
     }
 
     /**
-     * Updates an existing Level model.
+     * Updates an existing Record model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,7 +99,7 @@ class LevelController extends AuthController
     }
 
     /**
-     * Deletes an existing Level model.
+     * Deletes an existing Record model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +113,15 @@ class LevelController extends AuthController
     }
 
     /**
-     * Finds the Level model based on its primary key value.
+     * Finds the Record model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Level the loaded model
+     * @return Record the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Level::findOne($id)) !== null) {
+        if (($model = Record::findOne($id)) !== null) {
             return $model;
         }
 

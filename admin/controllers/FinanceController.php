@@ -2,19 +2,17 @@
 
 namespace admin\controllers;
 
-use Yii;
 use common\models\table\Finance;
+use admin\controllers\base\AuthController;
 use admin\models\search\FinanceSearch;
-use admin\models\search\FinanceReportFormSearch;
-use yii\helpers\ArrayHelper;
-use yii\web\Controller;
+use Yii;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * FinanceController implements the CRUD actions for Finance model.
  */
-class FinanceController extends Controller
+class FinanceController extends AuthController
 {
     /**
      * @inheritdoc

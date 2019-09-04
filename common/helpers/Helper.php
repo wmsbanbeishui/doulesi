@@ -626,4 +626,16 @@ class Helper
 		}
 		return false;
 	}
+
+	/**
+	 * 根据日期获取星期
+	 */
+	public static function getWeekByDate($date)
+	{
+		$week_array = ["日", "一", "二", "三", "四", "五", "六"];
+
+		$week = "星期".$week_array[date("w", strtotime($date))];
+
+		return $week;
+	}
 }
