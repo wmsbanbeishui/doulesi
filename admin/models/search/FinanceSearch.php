@@ -80,7 +80,7 @@ class FinanceSearch extends Finance
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'pagination' => ['pageSize' => 15],
-			'sort' => ['defaultOrder' => ['date' => SORT_DESC, 'id' => SORT_DESC]],
+			'sort' => ['defaultOrder' => ['date' => SORT_DESC, 'admin_id' => SORT_DESC, 'id' => SORT_DESC]],
 		]);
 
         return ['dataProvider' => $dataProvider, 'sum_cost' => $sum_cost];
