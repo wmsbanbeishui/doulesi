@@ -41,7 +41,7 @@ $gridColumns = [
 	'remark',
 	[
 		'class' => 'yii\grid\ActionColumn',
-		'template' => '{update}',
+		'template' => '{update} {delete}',
 	],
 ];
 ?>

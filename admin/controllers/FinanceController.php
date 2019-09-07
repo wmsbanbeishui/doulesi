@@ -108,7 +108,7 @@ class FinanceController extends AuthController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+    	Finance::updateAll(['status' => 0], ['id' => $id]);
 
         return $this->redirect(['index']);
     }

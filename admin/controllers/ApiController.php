@@ -17,6 +17,7 @@ class ApiController extends AuthController
 		$data = Category::find()
 			->select(['id', 'name'])
 			->where(['level' => $level_id])
+			->orderBy(['order_index' => SORT_DESC])
 			->all();
 		return ['code' => 0, 'data' => $data];
 	}

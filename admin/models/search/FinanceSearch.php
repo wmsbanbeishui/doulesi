@@ -41,7 +41,7 @@ class FinanceSearch extends Finance
      */
     public function search($params)
     {
-        $query = Finance::find();
+        $query = Finance::find()->where(['status' => 1]);
 
         // add conditions that should always apply here
 
