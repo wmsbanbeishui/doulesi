@@ -38,7 +38,15 @@ $gridColumns = [
 	],
 	'cost',
 	'create_time',
-	'remark',
+	[
+		'attribute' => 'remark',
+		'value' => function ($model) {
+			return $model->remark;
+		},
+		'contentOptions' => [
+			'style' => 'white-space:normal;word-wrap:break-word;word-break:break-all;width:350px;text-align:left;padding-left:30px',
+		],
+	],
 	[
 		'class' => 'yii\grid\ActionColumn',
 		'template' => '{update} {delete}',
