@@ -22,9 +22,9 @@ use yii\widgets\ActiveForm;
 		],
 	]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
 	<?= $form->field($model, 'level')->dropDownlist(Level::map()) ?>
+
+	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'letter')->textInput(['maxlength' => true]) ?>
 
