@@ -43,6 +43,11 @@ class RecordSearch extends Record
     {
         $query = Record::find();
 
+		$admin_id = Yii::$app->user->getId();
+		if (Yii::$app->authManager->getRolesByUser($admin_id) != 'admin' && $admin_id != 1) {
+			$query->andWhere(['admin_id' => $admin_id]);
+		}
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

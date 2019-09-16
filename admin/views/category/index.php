@@ -12,6 +12,9 @@ use yii\helpers\Html;
 $this->title = '类别列表';
 $this->params['breadcrumbs'][] = $this->title;
 
+$admin_id = Yii::$app->user->getId();
+$role = Yii::$app->authManager->getRolesByUser($admin_id);
+
 $gridColumns = [
 	'id',
 	'name',
@@ -32,7 +35,7 @@ $gridColumns = [
 	'create_time',
 	[
 		'class' => 'yii\grid\ActionColumn',
-		'template' => '{update} {delete}',
+		'template' => $role == 'admin' || $admin_id == 1 ? '{update}{delete}' : '',
 	],
 ];
 ?>

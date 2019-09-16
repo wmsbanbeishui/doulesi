@@ -3,6 +3,7 @@
 namespace admin\models\search;
 
 use common\models\table\Level;
+use Yii;
 use yii\base\Model;
 use common\models\table\Finance;
 use yii\db\Expression;
@@ -48,6 +49,11 @@ class ChartSearch extends Finance
 			->leftJoin(['l' => Level::tableName()], ['l.id' => new Expression('f.level_id')])
 			->where(['f.status' => 1]);
 			//->groupBy(['f.level_id']);
+
+		$admin_id = Yii::$app->user->getId();
+		if (Yii::$app->authManager->getRolesByUser($admin_id) != 'admin' && $admin_id != 1) {
+			$query->andWhere(['admin_id' => $admin_id]);
+		}
 
 		// add conditions that should always apply here
 

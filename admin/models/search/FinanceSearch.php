@@ -43,6 +43,11 @@ class FinanceSearch extends Finance
     {
         $query = Finance::find()->where(['status' => 1]);
 
+        $admin_id = Yii::$app->user->getId();
+        if (Yii::$app->authManager->getRolesByUser($admin_id) != 'admin' && $admin_id != 1) {
+        	$query->andWhere(['admin_id' => $admin_id]);
+		}
+
         // add conditions that should always apply here
 
 
