@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 		<div class="col-lg-3">
 			<?php echo DatePicker::widget([
 				'name' => 'Record[date]',
-				'value' => $model->isNewRecord ? date('Y-m-d') : $model->date,
+				'value' => $model->isNewRecord ? date('Y-m-d', strtotime('-1 day')) : $model->date,
 				'options' => ['id' => 'RecordDate', 'placeholder' => ''],
 				'pluginOptions' => [
 					'format' => 'yyyy-mm-dd',

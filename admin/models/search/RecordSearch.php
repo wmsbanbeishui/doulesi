@@ -69,10 +69,11 @@ class RecordSearch extends Record
         $query->andFilterWhere([
             'id' => $this->id,
             'admin_id' => $this->admin_id,
-            'date' => $this->date,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);
+
+		$query->timeRangeFilter('date', $this->date);
 
         $query->andFilterWhere(['like', 'record', $this->record]);
 

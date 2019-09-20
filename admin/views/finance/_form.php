@@ -41,7 +41,7 @@ $cat_list = CategoryService::getCatByLevel($model->level_id);
 		<div class="col-lg-3">
 			<?php echo DatePicker::widget([
 				'name' => 'Finance[date]',
-				'value' => $model->isNewRecord ? date('Y-m-d') : $model->date,
+				'value' => $model->isNewRecord ? date('Y-m-d', strtotime('-1 day')) : $model->date,
 				'options' => ['id' => 'FinanceDate', 'placeholder' => ''],
 				'pluginOptions' => [
 					'format' => 'yyyy-mm-dd',
