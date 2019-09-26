@@ -68,7 +68,7 @@ class LevelController extends AuthController
 
         if ($model->load(Yii::$app->request->post())) {
         	if (!$model->save()) {
-				echo $model->getFirstErrors();exit;
+				var_dump($model->getFirstErrors());exit;
 			}
             return $this->redirect(['view', 'id' => $model->id]);
         }
