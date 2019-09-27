@@ -3,12 +3,9 @@
 namespace admin\controllers;
 
 use admin\models\search\ChartSearch;
-use common\models\table\Finance;
 use admin\controllers\base\AuthController;
-use admin\models\search\FinanceSearch;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
