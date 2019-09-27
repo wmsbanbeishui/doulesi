@@ -31,13 +31,19 @@ $gridColumn = [
 	'profit',
 	'commission',
 	'rmb',
+	'offset_time',
 	[
-		'header' => '净利润',
+		'header' => '利润(币)',
+		'value' => function ($model) {
+			return ($model->profit - $model->commission);
+		}
+	],
+	[
+		'header' => '利润(人民币)',
 		'value' => function ($model) {
 			return round(($model->profit - $model->commission) * $model->rmb, 2);
 		}
 	],
-	'offset_time',
 	'remark',
 	'create_time',
 	[
