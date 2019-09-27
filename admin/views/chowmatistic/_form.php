@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
 				'value' => $model->isNewRecord ? date('Y-m-d H:i:s') : $model->offset_time,
 				'options' => ['id' => 'Chowmatistic', 'placeholder' => ''],
 				'pluginOptions' => [
-					'format' => 'yyyy-mm-dd H:i:s',
+					'format' => 'yyyy-mm-dd hh:ii:ss',
 					'todayHighlight' => true,
 				],
 			]); ?>
