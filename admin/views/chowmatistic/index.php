@@ -34,7 +34,7 @@ $gridColumn = [
 	[
 		'header' => '净利润',
 		'value' => function ($model) {
-			return ($model->profit - $model->commission) * $model->rmb;
+			return round(($model->profit - $model->commission) * $model->rmb, 2);
 		}
 	],
 	'offset_time',
