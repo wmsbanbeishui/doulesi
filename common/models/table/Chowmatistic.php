@@ -12,7 +12,7 @@ class Chowmatistic extends ChowmatisticBase
 		return array_merge(parent::attributeLabels(), [
 			'cur_id' => '币种',
 			'cat_id' => '类别',
-			//'status' => '状态',
+			'rmb' => '价格（RMB）',
 			//'order_index' => '排序'
 		]);
 	}

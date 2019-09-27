@@ -30,10 +30,11 @@ $gridColumn = [
 	'open_interest',
 	'profit',
 	'commission',
+	'rmb',
 	[
 		'header' => '净利润',
 		'value' => function ($model) {
-			return $model->profit - $model->commission;
+			return ($model->profit - $model->commission) * $model->rmb;
 		}
 	],
 	'offset_time',
