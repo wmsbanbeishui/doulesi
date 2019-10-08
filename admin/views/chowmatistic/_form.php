@@ -29,6 +29,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'open_interest')->textInput() ?>
 
+	<?= $form->field($model, 'final_price')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'profit')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'commission')->textInput(['maxlength' => true]) ?>

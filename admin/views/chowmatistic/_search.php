@@ -1,6 +1,7 @@
 <?php
 
 use common\models\table\Currency;
+use common\models\table\CurrencyCat;
 use common\widgets\DateRangePicker;
 use common\models\table\Chowmatistic;
 use yii\helpers\Html;
@@ -22,7 +23,7 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($model, 'cur_id')->dropDownList(Currency::map(), ['prompt' => '全部']) ?>
 
-		<?= $form->field($model, 'cat_id')->dropDownList(Chowmatistic::catMap(), ['prompt' => '全部']) ?>
+		<?= $form->field($model, 'cat_id')->dropDownList(CurrencyCat::map(), ['prompt' => '全部']) ?>
 
 		<?= $form->field($model, 'offset_time')->widget(DateRangePicker::className()) ?>
 

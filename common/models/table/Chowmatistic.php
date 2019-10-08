@@ -13,21 +13,8 @@ class Chowmatistic extends ChowmatisticBase
 			'cur_id' => '币种',
 			'cat_id' => '类别',
 			'rmb' => '价格（RMB）',
+			'offset_time' => '时间',
 			//'order_index' => '排序'
 		]);
-	}
-
-	const CAT_EMPTY = 1;
-	const STATUS_MANY = 2;
-	public static function catMap($value = null)
-	{
-		$map = [
-			self::CAT_EMPTY => '开空',
-			self::STATUS_MANY => '开多',
-		];
-		if ($value === null) {
-			return $map;
-		}
-		return ArrayHelper::getValue($map, $value, $value);
 	}
 }

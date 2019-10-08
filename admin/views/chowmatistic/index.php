@@ -3,6 +3,7 @@
 use common\helpers\Render;
 use common\models\table\Chowmatistic;
 use common\models\table\Currency;
+use common\models\table\CurrencyCat;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -24,28 +25,28 @@ $gridColumn = [
 	[
 		'attribute' => 'cat_id',
 		'value' => function ($model) {
-			return Chowmatistic::catMap($model->cat_id);
+			return CurrencyCat::getNameById($model->cat_id);
 		}
 	],
 	'open_interest',
+	'final_price',
 	'profit',
 	'commission',
-	'rmb',
-	'offset_time',
 	[
 		'header' => '利润(币)',
 		'value' => function ($model) {
 			return ($model->profit - $model->commission);
 		}
 	],
+	'rmb',
 	[
 		'header' => '利润(人民币)',
 		'value' => function ($model) {
 			return round(($model->profit - $model->commission) * $model->rmb, 2);
 		}
 	],
+	'offset_time',
 	'remark',
-	'create_time',
 	[
 		'class' => 'yii\grid\ActionColumn',
 		'template' => '{update} {delete}',
