@@ -17,7 +17,11 @@ class CategoryService
 	 */
 	public static function getCatByLevel($level_id)
 	{
-		$data = Category::find()->select(['id', 'name'])->where(['level' => $level_id, 'status' => 1])->all();
+		$data = Category::find()
+			->select(['id', 'name'])
+			->where(['level' => $level_id, 'status' => 1])
+			->orderBy(['order_index' => SORT_DESC])
+			->all();
 		return ArrayHelper::map($data, 'id', 'name');
 	}
 }
