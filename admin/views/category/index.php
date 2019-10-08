@@ -35,7 +35,7 @@ $gridColumns = [
 	'create_time',
 	[
 		'class' => 'yii\grid\ActionColumn',
-		'template' => $role == 'admin' || $admin_id == 1 ? '{update}{delete}' : '',
+		'template' => $role == 'admin' || $admin_id == 1 ? '{update} {delete}' : '',
 	],
 ];
 ?>
