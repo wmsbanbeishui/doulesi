@@ -47,6 +47,7 @@ class LevelSearch extends Level
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort' => ['defaultOrder' => ['order_index' => SORT_DESC, 'id' => SORT_DESC]],
         ]);
 
         $this->load($params);
