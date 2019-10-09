@@ -1,11 +1,9 @@
 <?php
 
 use common\helpers\Render;
-use common\models\table\Chowmatistic;
 use common\models\table\Currency;
 use common\models\table\CurrencyCat;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\search\ChowmatisticSearch */
