@@ -35,32 +35,10 @@ class CategoryController extends AuthController
 	 */
 	public function actionIndex()
 	{
-		$test = Yii::$app->mailer->compose()
-			->setFrom(['269243737@qq.com' => '逗乐思'])//和上面的from字段相对应  可以只写一个
-			->setTo('269243737@qq.com')
-			->setSubject('test')
-			->setTextBody('逗乐思的测试');
-
-		if ($test->send()) {
-			echo "success";
-		} else {
-			echo "failse";
-		}
-		exit;
-
-		$test = Yii::$app->mailer->compose()
-			->setFrom(['269243737@qq.com' => '逗乐思'])//和上面的from字段相对应  可以只写一个
-			->setTo('269243737@qq.com')
-			->setSubject('test')
-			->setTextBody('test')
-			->send();
-		var_dump($test);
-		exit;
-
 		$searchModel = new CategorySearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		return $this->render('index111', [
+		return $this->render('index', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);
