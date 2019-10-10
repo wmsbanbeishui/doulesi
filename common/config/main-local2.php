@@ -8,15 +8,15 @@ $config = [
 			'transport' => [
 				'class' => 'Swift_SmtpTransport',
 				'host' => 'smtp.qq.com',  //每种邮箱的host配置不一样
-				'username' => '269243737@qq.com',
-				'password' => 'mpecljnkiuwybgde',
+				'username' => '123456@qq.com',
+				'password' => 'password',
 				'port' => '465',
 				'encryption' => 'ssl',
 
 			],
 			'messageConfig'=>[
 				'charset'=>'UTF-8',
-				'from'=>['269243737@qq.com'=>'逗乐思']
+				'from'=>['123456@qq.com'=>'逗乐思']
 			],
 		],
 	]
