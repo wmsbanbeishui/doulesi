@@ -2,6 +2,7 @@
 
 use common\models\table\Chowmatistic;
 use common\models\table\Currency;
+use common\models\table\CurrencyCat;
 use kartik\datetime\DateTimePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -25,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cur_id')->dropDownList(Currency::map()) ?>
 
-    <?= $form->field($model, 'cat_id')->dropDownList(Chowmatistic::catMap()) ?>
+    <?= $form->field($model, 'cat_id')->dropDownList(CurrencyCat::map()) ?>
 
     <?= $form->field($model, 'open_interest')->textInput() ?>
 
