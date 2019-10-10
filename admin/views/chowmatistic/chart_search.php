@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
 	<div class="pl form-inline">
 
-		<?= $form->field($model, 'cur_id')->dropDownList(Currency::map(), ['prompt' => '请选择'])?>
-
 		<?= $form->field($model, 'offset_time')->widget(DateRangePicker::className()) ?>
 
 		<div class="form-group">

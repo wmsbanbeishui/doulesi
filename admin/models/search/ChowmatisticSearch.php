@@ -33,13 +33,6 @@ class ChowmatisticSearch extends Chowmatistic
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
     public function search($params)
     {
         $query = Chowmatistic::find();
@@ -77,6 +70,16 @@ class ChowmatisticSearch extends Chowmatistic
 		$query->timeRangeFilter('offset_time', $this->offset_time);
         $query->andFilterWhere(['like', 'remark', $this->remark]);
 
-        return $dataProvider;
+		$sum_query = clone $query;
+		$sum_query->select(['sum_profit' => 'SUM(profit)', 'sum_commission' => 'SUM(commission)']);
+		$sum = $sum_query->asArray()->one();
+
+		$data = [
+			'dataProvider' => $dataProvider,
+			'sum_profit' => $sum['sum_profit'],
+			'sum_commission' => $sum['sum_commission']
+		];
+
+        return $data;
     }
 }

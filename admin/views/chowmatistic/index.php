@@ -31,16 +31,16 @@ $gridColumn = [
 	'profit',
 	'commission',
 	[
-		'header' => '利润(币)',
+		'header' => '利润',
 		'value' => function ($model) {
 			return ($model->profit - $model->commission);
 		}
 	],
 	'rmb',
 	[
-		'header' => '利润(人民币)',
+		'header' => '利润(RMB)',
 		'value' => function ($model) {
-			return round(($model->profit - $model->commission) * $model->rmb, 2);
+			return round(($model->profit - $model->commission) * $model->final_price * 7, 2);
 		}
 	],
 	'offset_time',
@@ -57,6 +57,20 @@ $gridColumn = [
     <p>
         <?= Html::a('新增交易', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+	<div>
+		<table class="table table-striped table-bordered" style="width: 400px;">
+			<tr>
+				<td>收益</td>
+				<td>手续费</td>
+				<td>利润</td>
+			</tr>
+			<tr>
+				<td><span style="color: orangered"><?= round($sum_profit * 7, 2) ?></span></td>
+				<td><span style="color: orangered"><?= round($sum_commission * 7, 2) ?></span></td>
+				<td><span style="color: orangered"><?= round(($sum_profit - $sum_commission) * 7, 2)?></span></td>
+			</tr>
+		</table>
+	</div>
 
     <?= Render::gridView([
         'dataProvider' => $dataProvider,

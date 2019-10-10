@@ -6,7 +6,7 @@
 $this->title = '修改菜单: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => '菜单管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '更新菜单';
 ?>
 <div class="menu-base-update">
 

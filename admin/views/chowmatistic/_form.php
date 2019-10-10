@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'remark')->textInput(['maxlength' => true]) ?>
 
 	<div class="form-group">
-		<label class="control-label col-lg-1">平仓时间</label>
+		<label class="control-label col-lg-1">时间</label>
 		<div class="col-lg-3">
 			<?php echo DateTimePicker::widget([
 				'name' => 'Chowmatistic[offset_time]',

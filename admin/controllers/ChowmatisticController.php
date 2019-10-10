@@ -38,11 +38,13 @@ class ChowmatisticController extends AuthController
     public function actionIndex()
     {
         $searchModel = new ChowmatisticSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $data = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['dataProvider'],
+			'sum_profit' => $data['sum_profit'],
+			'sum_commission' => $data['sum_commission']
         ]);
     }
 
@@ -132,14 +134,10 @@ class ChowmatisticController extends AuthController
 		$searchModel = new ChowChartSearch();
 		$data = $searchModel->search(Yii::$app->request->queryParams);
 
-		$name = ArrayHelper::getColumn($data['info'], 'name');
-
-		$net_profits = ArrayHelper::getColumn($data['info'], 'net_profits');
 
 		return $this->render('chart', [
 			'searchModel' => $searchModel,
-			'name' => $name,
-			'net_profits' => $net_profits,
+			'data' => $data,
 		]);
 	}
 }

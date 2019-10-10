@@ -45,9 +45,9 @@ class ChowChartSearch extends Chowmatistic
 	{
 		$query = Chowmatistic::find()
 			->alias('c')
-			->select(['net_profits' => 'SUM(profit)-SUM(commission)', 'cur.name'])
+			->select(['c.offset_time', 'cur.name', 'profit', 'commission', 'cur_id'])
 			->leftJoin(['cur' => Currency::tableName()], ['cur.id' => new Expression('c.cur_id')])
-			->groupBy(['c.cur_id']);
+			->orderBy(['c.offset_time' => SORT_ASC]);
 
 		// add conditions that should always apply here
 
@@ -75,6 +75,6 @@ class ChowChartSearch extends Chowmatistic
 
 		$info = $query->asArray()->all();
 
-		return ['info' => $info];
+		return $info;
 	}
 }

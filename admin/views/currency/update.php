@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = '更新币种: {nameAttribute}';
 $this->params['breadcrumbs'][] = ['label' => '币种列表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '更新币种';
 ?>
 <div class="currency-update">
 

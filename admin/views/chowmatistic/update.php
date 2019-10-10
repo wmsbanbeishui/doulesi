@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = '更新交易: {nameAttribute}';
 $this->params['breadcrumbs'][] = ['label' => '交易列表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '更新交易';
 ?>
 <div class="chowmatistic-update">
 

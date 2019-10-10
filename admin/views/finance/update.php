@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = '更新明细: {nameAttribute}';
 $this->params['breadcrumbs'][] = ['label' => '明细', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '更新账单';
 ?>
 <div class="finance-update">
 
