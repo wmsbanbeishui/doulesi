@@ -8,7 +8,7 @@ return [
 
 
 	// 开启发送错误到邮箱 0-关闭；1-开启；
-	'send_error_report' => 0,
+	'send_error_report' => 1,
 	// 错误报告邮箱接收人
 	'error_report_receiver' =>  [
 		'773728950@qq.com' => ['admin'],
