@@ -11,12 +11,12 @@ $config = [
 				'username' => '269243737@qq.com',
 				'password' => 'mpecljnkiuwybgde',
 				'port' => '465',
-				//'encryption' => 'tls',
+				'encryption' => 'ssl',
 
 			],
 			'messageConfig'=>[
 				'charset'=>'UTF-8',
-				'from'=>['269243737@qq.com'=>'admin']
+				'from'=>['269243737@qq.com'=>'逗乐思']
 			],
 		],
 	]
