@@ -19,8 +19,7 @@ $components = [
 			[
 				'class' => 'common\helpers\FileTarget',
 				'levels' => ['error', 'warning'],
-			],
-		],
+			],		],
 	],
 ];
 
