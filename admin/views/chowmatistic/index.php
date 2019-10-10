@@ -38,7 +38,7 @@ $gridColumn = [
 	],
 	'rmb',
 	[
-		'header' => '利润(RMB)',
+		'header' => '利润（RMB）',
 		'value' => function ($model) {
 			return round(($model->profit - $model->commission) * $model->final_price * 7, 2);
 		}
@@ -60,9 +60,9 @@ $gridColumn = [
 	<div>
 		<table class="table table-striped table-bordered" style="width: 400px;">
 			<tr>
-				<td>收益</td>
-				<td>手续费</td>
-				<td>利润</td>
+				<td>收益（RMB）</td>
+				<td>手续费（RMB）</td>
+				<td>利润（RMB）</td>
 			</tr>
 			<tr>
 				<td><span style="color: orangered"><?= round($sum_profit * 7, 2) ?></span></td>
