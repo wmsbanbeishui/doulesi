@@ -13,8 +13,9 @@ use Yii;
  * @property int $open_interest 成交量
  * @property string $final_price 成交价
  * @property string $profit 收益
+ * @property string $profit2 收益乘以成交价
  * @property string $commission 手续费
- * @property string $rmb 人民币，价格
+ * @property string $commission2 手续费乘以成交价
  * @property string $remark 备注
  * @property string $offset_time 平仓时间
  * @property string $create_time 创建时间
@@ -37,7 +38,8 @@ class ChowmatisticBase extends \common\extensions\ActiveRecord
     {
         return [
             [['cur_id', 'cat_id', 'open_interest'], 'integer'],
-            [['final_price', 'profit', 'commission', 'rmb'], 'number'],
+            [['open_interest', 'final_price'], 'required'],
+            [['final_price', 'profit', 'profit2', 'commission', 'commission2'], 'number'],
             [['offset_time', 'create_time', 'update_time'], 'safe'],
             [['remark'], 'string', 'max' => 30],
         ];
@@ -55,8 +57,9 @@ class ChowmatisticBase extends \common\extensions\ActiveRecord
             'open_interest' => '成交量',
             'final_price' => '成交价',
             'profit' => '收益',
+            'profit2' => '收益乘以成交价',
             'commission' => '手续费',
-            'rmb' => '人民币，价格',
+            'commission2' => '手续费乘以成交价',
             'remark' => '备注',
             'offset_time' => '平仓时间',
             'create_time' => '创建时间',

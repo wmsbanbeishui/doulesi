@@ -71,13 +71,13 @@ class ChowmatisticSearch extends Chowmatistic
         $query->andFilterWhere(['like', 'remark', $this->remark]);
 
 		$sum_query = clone $query;
-		$sum_query->select(['sum_profit' => 'SUM(profit)', 'sum_commission' => 'SUM(commission)']);
+		$sum_query->select(['sum_profit' => 'SUM(profit2)', 'sum_commission' => 'SUM(commission2)']);
 		$sum = $sum_query->asArray()->one();
 
 		$data = [
 			'dataProvider' => $dataProvider,
 			'sum_profit' => $sum['sum_profit'],
-			'sum_commission' => $sum['sum_commission']
+			'sum_commission' => $sum['sum_commission'],
 		];
 
         return $data;

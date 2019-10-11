@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\Helper;
 use common\helpers\Render;
 use common\models\table\Currency;
 use common\models\table\CurrencyCat;
@@ -11,6 +12,8 @@ use yii\helpers\Html;
 
 $this->title = '交易列表';
 $this->params['breadcrumbs'][] = $this->title;
+
+$exchange_rate = Helper::getParam('exchange_rate');
 
 $gridColumn = [
 	'id',
@@ -36,11 +39,11 @@ $gridColumn = [
 			return ($model->profit - $model->commission);
 		}
 	],
-	'rmb',
 	[
-		'header' => '利润（RMB）',
+		'header' => '净利润（RMB）',
 		'value' => function ($model) {
-			return round(($model->profit - $model->commission) * $model->final_price * 7, 2);
+			$exchange_rate = Helper::getParam('exchange_rate');
+			return ($model->profit - $model->commission) * $model->final_price * $exchange_rate;
 		}
 	],
 	'offset_time',
@@ -65,9 +68,9 @@ $gridColumn = [
 				<td>利润（RMB）</td>
 			</tr>
 			<tr>
-				<td><span style="color: orangered"><?= round($sum_profit * 7, 2) ?></span></td>
-				<td><span style="color: orangered"><?= round($sum_commission * 7, 2) ?></span></td>
-				<td><span style="color: orangered"><?= round(($sum_profit - $sum_commission) * 7, 2)?></span></td>
+				<td><span style="color: orangered"><?= round($sum_profit * $exchange_rate, 2) ?></span></td>
+				<td><span style="color: orangered"><?= round($sum_commission * $exchange_rate, 2) ?></span></td>
+				<td><span style="color: orangered"><?= round(($sum_profit - $sum_commission) * $exchange_rate, 2) ?></span></td>
 			</tr>
 		</table>
 	</div>

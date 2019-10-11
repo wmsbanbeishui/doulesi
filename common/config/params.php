@@ -6,7 +6,6 @@ return [
 
 
 
-
 	// 开启发送错误到邮箱 0-关闭；1-开启；
 	'send_error_report' => 1,
 	// 错误报告邮箱接收人
@@ -14,4 +13,7 @@ return [
 		'773728950@qq.com' => ['admin'],
 		'269243737@qq.com' => ['admin'],
 	],
+
+	// 汇率
+	'exchange_rate' => 7,
 ];

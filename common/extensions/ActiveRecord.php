@@ -4,9 +4,7 @@ namespace common\extensions;
 
 use common\helpers\Helper;
 use common\models\table\AdminLog;
-use common\models\table\AuthItem;
 use common\models\table\AdminAuthMenu;
-use common\models\table\MchLog;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
 

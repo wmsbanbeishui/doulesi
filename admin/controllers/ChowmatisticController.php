@@ -2,12 +2,12 @@
 
 namespace admin\controllers;
 
+use common\helpers\Helper;
 use Yii;
 use common\models\table\Chowmatistic;
 use admin\models\search\ChowmatisticSearch;
 use admin\models\search\ChowChartSearch;
 use admin\controllers\base\AuthController;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -44,7 +44,7 @@ class ChowmatisticController extends AuthController
             'searchModel' => $searchModel,
             'dataProvider' => $data['dataProvider'],
 			'sum_profit' => $data['sum_profit'],
-			'sum_commission' => $data['sum_commission']
+			'sum_commission' => $data['sum_commission'],
         ]);
     }
 
@@ -70,8 +70,14 @@ class ChowmatisticController extends AuthController
     {
         $model = new Chowmatistic();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+        if ($model->load(Yii::$app->request->post())) {
+
+			$model->profit2 = $model->profit * $model->final_price;
+			$model->commission2 = $model->commission * $model->final_price;
+
+        	if ($model->save()) {
+				return $this->redirect('index');
+			}
         }
 
         return $this->render('create', [
@@ -90,8 +96,14 @@ class ChowmatisticController extends AuthController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+        if ($model->load(Yii::$app->request->post())) {
+
+			$model->profit2 = $model->profit * $model->final_price;
+			$model->commission2 = $model->commission * $model->final_price;
+
+			if ($model->save()) {
+				return $this->redirect('index');
+			}
         }
 
         return $this->render('update', [

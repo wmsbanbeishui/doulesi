@@ -36,8 +36,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'commission')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'rmb')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'remark')->textInput(['maxlength' => true]) ?>
 
 	<div class="form-group">
