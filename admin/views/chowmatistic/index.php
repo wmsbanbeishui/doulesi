@@ -43,7 +43,7 @@ $gridColumn = [
 		'header' => '净利润（RMB）',
 		'value' => function ($model) {
 			$exchange_rate = Helper::getParam('exchange_rate');
-			return ($model->profit - $model->commission) * $model->final_price * $exchange_rate;
+			return round(($model->profit - $model->commission) * $model->final_price * $exchange_rate, 2);
 		}
 	],
 	'offset_time',
