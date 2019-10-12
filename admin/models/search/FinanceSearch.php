@@ -60,6 +60,12 @@ class FinanceSearch extends Finance
 			echo '111';exit;
 		}
 
+		if (empty($this->date)) {
+			$start = date('Y/01/01');
+			$end = date('Y/12/31');
+			$this->date = $start.' - '.$end;
+		}
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
