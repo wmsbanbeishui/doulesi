@@ -38,10 +38,9 @@ class ChowmatisticBase extends \common\extensions\ActiveRecord
     {
         return [
             [['cur_id', 'cat_id', 'open_interest'], 'integer'],
-            [['open_interest', 'final_price'], 'required'],
             [['final_price', 'profit', 'profit2', 'commission', 'commission2'], 'number'],
             [['offset_time', 'create_time', 'update_time'], 'safe'],
-            [['remark'], 'string', 'max' => 30],
+            [['remark'], 'string', 'max' => 100],
         ];
     }
 
