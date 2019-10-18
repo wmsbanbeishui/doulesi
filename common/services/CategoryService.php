@@ -20,7 +20,7 @@ class CategoryService
 		$data = Category::find()
 			->select(['id', 'name'])
 			->where(['level' => $level_id, 'status' => 1])
-			->orderBy(['order_index' => SORT_DESC])
+			->orderBy(['order_index' => SORT_DESC, 'letter' => SORT_ASC])
 			->all();
 		return ArrayHelper::map($data, 'id', 'name');
 	}
