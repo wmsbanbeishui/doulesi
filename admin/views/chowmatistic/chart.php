@@ -83,10 +83,12 @@ $xrp_chart->series[] = array(
 	<?php echo $this->render('chart_search', ['model' => $searchModel]); ?>
 
 	<div id="chart1">
+		<span style="padding-left:100px; color:red;">EOS总和：<?= $eos_sum?></span>
 		<?php echo $eos_chart->render('simple-custom-1'); ?>
 	</div>
 
 	<div id="chart2">
+		<span style="padding-left:100px; color:red;">XRP总和：<?= $xrp_sum?></span>
 		<?php echo $xrp_chart->render('simple-custom-2'); ?>
 	</div>
 
