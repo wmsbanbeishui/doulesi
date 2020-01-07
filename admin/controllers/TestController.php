@@ -31,7 +31,7 @@ class TestController extends BaseController
 		return $response->sendFile(Yii::getAlias('@webroot/import_template.xlsx'));
 	}
 
-	public function action() {
+	public function actionTest() {
 	    echo '222';exit;
     }
 }
