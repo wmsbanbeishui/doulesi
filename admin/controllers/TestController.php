@@ -32,6 +32,6 @@ class TestController extends BaseController
 	}
 
 	public function action() {
-	    echo '111';exit;
+	    echo '222';exit;
     }
 }
