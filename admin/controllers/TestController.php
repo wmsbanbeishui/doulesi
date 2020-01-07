@@ -30,4 +30,8 @@ class TestController extends BaseController
 		$response = Yii::$app->getResponse();
 		return $response->sendFile(Yii::getAlias('@webroot/import_template.xlsx'));
 	}
+
+	public function action() {
+	    echo '111';exit;
+    }
 }
