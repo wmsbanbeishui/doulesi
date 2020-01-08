@@ -74,7 +74,7 @@ class AccountController extends AuthController
                 exit;
             }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [
@@ -130,5 +130,19 @@ class AccountController extends AuthController
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSee() {
+        Yii::$app->response->format = 'json';
+
+        $post = Yii::$app->request->post();
+        $id = $post['id'];
+
+        $password = Account::find()->select(['password'])->where(['id' => $id])->scalar();
+
+        return [
+            'code' => '0',
+            'password' => $password
+        ];
     }
 }
