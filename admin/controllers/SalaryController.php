@@ -36,11 +36,12 @@ class SalaryController extends AuthController
     public function actionIndex()
     {
         $searchModel = new SalarySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $data = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['dataProvider'],
+            'sum' => $data['sum']
         ]);
     }
 
@@ -67,7 +68,7 @@ class SalaryController extends AuthController
         $model = new Salary();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [

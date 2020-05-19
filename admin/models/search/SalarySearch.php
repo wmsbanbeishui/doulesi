@@ -46,16 +46,19 @@ class SalarySearch extends Salary
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            return $dataProvider;
+            //return $dataProvider;
+            echo '111';exit;
+        }
+
+        if (empty($this->date)) {
+            $start = date('Y/01/01');
+            $end = date('Y/12/31');
+            $this->date = $start.' - '.$end;
         }
 
         // grid filtering conditions
@@ -63,14 +66,22 @@ class SalarySearch extends Salary
             'id' => $this->id,
             'admin_id' => $this->admin_id,
             'salary' => $this->salary,
-            'date' => $this->date,
             'status' => $this->status,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);
 
+        $query->timeRangeFilter('date', $this->date);
         $query->andFilterWhere(['like', 'remark', $this->remark]);
+        $sum_query = clone $query;
+        $sum_query->select(['sum' => 'SUM(salary)']);
+        $sum = $sum_query->scalar();
 
-        return $dataProvider;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['date' => SORT_DESC, 'admin_id' => SORT_DESC, 'id' => SORT_ASC]],
+        ]);
+
+        return ['dataProvider' => $dataProvider, 'sum' => $sum];
     }
 }

@@ -43,6 +43,7 @@ $gridColumns = [
 
     <p>
         <?= Html::a('添加工资记录', ['create'], ['class' => 'btn btn-success']) ?>
+        <span style="color:red; padding-left: 20px">总计：<?= $sum ?></span>
     </p>
 
     <?= Render::gridView([
