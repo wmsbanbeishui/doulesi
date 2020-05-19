@@ -34,3 +34,4 @@ phpunit.phar
 # vagrant runtime
 /.vagrant
 /admin/views/finance/report-form.php
+/admin/controllers/IndexController;
