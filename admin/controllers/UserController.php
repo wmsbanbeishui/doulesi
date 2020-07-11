@@ -62,8 +62,6 @@ class UserController extends BaseController
 					$error = $admin_log->getErrors();
 					Helper::fLogs([$error, $_SERVER], 'admin_log_save_error.log');
 				}
-
-				Message::setSuccessMsg('登录成功');
 				return $this->redirect(['/']);
 			} else {
 				Message::setErrorMsg('登录失败');
