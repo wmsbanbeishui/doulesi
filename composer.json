@@ -27,7 +27,8 @@
         "liyunfang/yii2-widget-linkpager": "^1.0",
         "kartik-v/yii2-date-range": "*",
         "bower-asset/echarts": "*",
-        "hisune/echarts-php": "^1.0"
+        "hisune/echarts-php": "^1.0",
+		"kucha/ueditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
