@@ -19,14 +19,20 @@ $grid_column = [
         'format' => 'raw',
         'value' => function ($models) {
             return $models->plan;
-        }
+        },
+        'contentOptions' => [
+            'style' => 'white-space:normal;word-wrap:break-word;word-break:break-all;text-align:left;padding-left:30px',
+        ],
     ],
     [
         'attribute' => 'finish',
         'format' => 'raw',
         'value' => function ($models) {
             return $models->finish;
-        }
+        },
+        'contentOptions' => [
+            'style' => 'white-space:normal;word-wrap:break-word;word-break:break-all;text-align:left;padding-left:30px',
+        ],
     ],
     [
         'class' => 'yii\grid\ActionColumn',
