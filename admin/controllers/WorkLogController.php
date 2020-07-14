@@ -80,7 +80,7 @@ class WorkLogController extends AuthController
         $model = new WorkLog();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['create']);
         }
 
         return $this->render('create', [
