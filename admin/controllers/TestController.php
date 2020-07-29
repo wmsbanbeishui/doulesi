@@ -11,7 +11,8 @@ class TestController extends BaseController
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        echo '333';
+        //return $this->render('index');
     }
 
     public function actionImport()
