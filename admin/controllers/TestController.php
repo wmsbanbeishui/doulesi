@@ -40,7 +40,7 @@ class TestController extends BaseController
     {
         $finish = '已完成123';
         echo '111';
-        $test = pclose(popen('php yii test/swoole-add &', 'w'));
+        $test = pclose(popen('php cli2cgi &', 'r'));
         var_dump($test);
         echo '222';
     }
