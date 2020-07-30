@@ -15,9 +15,9 @@ class TestController extends Controller
 
     public function actionSwooleAdd()
     {
-        $queryString = getopt('finish:');
-        //$queryString['finish'] = '已完成';
-        swoole_timer_after(120000, function () use($queryString) {
+        //$queryString = getopt('finish:');
+        $queryString['finish'] = '已完成123';
+        swoole_timer_after(10000, function () use($queryString) {
             $work = new WorkLog();
             $work->plan = '计划';
             $work->finish = $queryString['finish'];
