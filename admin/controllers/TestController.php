@@ -38,18 +38,9 @@ class TestController extends BaseController
 
     public function actionTest()
     {
-        self::swooleAdd();
+        $finish = '已完成123';
         echo '111';
-    }
-
-    public function swooleAdd()
-    {
-        swoole_timer_after(1000, function () {
-            $work = new WorkLog();
-            $work->plan = '计划';
-            $work->finish = '完成';
-            $work->date = date('Y-m-d');
-            $work->save();
-        });
+        pclose(popen('php yii test/swoole-add -finish ' . $finish . ' &', 'w'));
+        echo '222';
     }
 }
