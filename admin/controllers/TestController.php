@@ -11,6 +11,7 @@ class TestController extends BaseController
 {
     public function actionIndex()
     {
+        echo phpinfo();
         echo '333';
         //return $this->render('index');
     }
@@ -38,11 +39,15 @@ class TestController extends BaseController
 
     public function actionTest()
     {
+        error_reporting(E_ALL);
         $finish = '已完成123';
         echo '111'.PHP_EOL;
+        $handle = popen('php cli2cgi.php &', 'r');
+        echo "'$handle';".gettype($handle)."\n";
+        $read = fread($handle, 2096);
+        echo $read;
+        pclose($handle);
         //pclose(popen('php cli2cgi.php &', 'r'));
-        system("php ./cli2cgi.php &", $phpResult);
-        echo $phpResult.PHP_EOL;
         echo '222'.PHP_EOL;
     }
 }
