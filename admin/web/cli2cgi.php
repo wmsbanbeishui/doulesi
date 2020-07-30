@@ -13,13 +13,13 @@ $controller = new $c;
 //调用该方法
 $controller->$a();*/
 
-/*echo '111'.PHP_EOL;
+echo '111'.PHP_EOL;
 swoole_timer_after(5000, function () {
     echo '222'.PHP_EOL;
 });
-echo '333'.PHP_EOL;*/
+echo '333'.PHP_EOL;
 
-use common\models\table\WorkLog;
+/*use common\models\table\WorkLog;
 
 $queryString['finish'] = '已完成123';
 swoole_timer_after(10000, function () use($queryString) {
@@ -28,4 +28,4 @@ swoole_timer_after(10000, function () use($queryString) {
     $work->finish = $queryString['finish'];
     $work->date = date('Y-m-d');
     $work->save();
-});
+});*/

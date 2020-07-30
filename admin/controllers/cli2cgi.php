@@ -14,7 +14,7 @@ $controller = new $c;
 $controller->$a();*/
 
 
-use common\models\table\WorkLog;
+/*use common\models\table\WorkLog;
 
 $queryString['finish'] = '已完成123';
 swoole_timer_after(10000, function () use($queryString) {
@@ -23,5 +23,11 @@ swoole_timer_after(10000, function () use($queryString) {
     $work->finish = $queryString['finish'];
     $work->date = date('Y-m-d');
     $work->save();
+});*/
+
+echo '1'.PHP_EOL;
+swoole_timer_after(5000, function () {
+    echo '2'.PHP_EOL;
 });
+echo '3'.PHP_EOL;
 
