@@ -39,10 +39,10 @@ class TestController extends BaseController
     public function actionTest()
     {
         $finish = '已完成123';
-        echo '111';
+        echo '111'.PHP_EOL;
         //pclose(popen('php cli2cgi.php &', 'r'));
-        system("php cli2cgi.php &", $phpResult);
-        echo $phpResult;
-        echo '222';
+        system("php ./cli2cgi.php &", $phpResult);
+        echo $phpResult.PHP_EOL;
+        echo '222'.PHP_EOL;
     }
 }

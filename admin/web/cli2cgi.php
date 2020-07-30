@@ -13,8 +13,8 @@ $controller = new $c;
 //调用该方法
 $controller->$a();*/
 
-echo '111';
+echo '111'.PHP_EOL;
 swoole_timer_after(5000, function () {
-    echo '222';
+    echo '222'.PHP_EOL;
 });
-echo '333';
+echo '333'.PHP_EOL;
