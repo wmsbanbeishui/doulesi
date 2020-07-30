@@ -40,8 +40,7 @@ class TestController extends BaseController
     {
         $finish = '已完成123';
         echo '111';
-        $test = pclose(popen('php cli2cgi &', 'r'));
-        var_dump($test);
+        pclose(popen('php cli2cgi.php &', 'r'));
         echo '222';
     }
 }
