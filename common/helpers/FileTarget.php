@@ -42,8 +42,9 @@ class FileTarget extends YiiFileTarget
 
 		$ignore_http_error = [400, 401, 404, 405];
 		$status_code = isset($this->messages[0][0]->statusCode) ? $this->messages[0][0]->statusCode : 0;
+
 		if (Helper::getParam('send_error_report') && empty($GLOBALS['sent_error_report']) && !in_array($status_code, $ignore_http_error)) {
-			$GLOBALS['sent_error_report'] = 1;
+		    $GLOBALS['sent_error_report'] = 1;
 			$app_id = Yii::$app->id;
 
 			$receiver = null;
