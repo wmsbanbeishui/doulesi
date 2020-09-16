@@ -4,6 +4,7 @@ namespace admin\controllers;
 
 use admin\models\form\TestImportForm;
 use admin\controllers\base\BaseController;
+use common\models\table\ArticleSearch;
 use common\models\table\WorkLog;
 use Yii;
 

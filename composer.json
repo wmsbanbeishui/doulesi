@@ -29,7 +29,8 @@
         "bower-asset/echarts": "*",
         "hisune/echarts-php": "^1.0",
 		"kucha/ueditor": "*",
-        "kartik-v/yii2-widget-fileinput": "dev-master"
+        "kartik-v/yii2-widget-fileinput": "dev-master",
+        "yiisoft/yii2-elasticsearch": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
