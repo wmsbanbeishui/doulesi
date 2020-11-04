@@ -28,16 +28,16 @@ return [
 
 
     // 七牛存储配置
-    'qiniu_ak' => 'OK_qgQW3ojWLsyHsH5yG_jqzjaXaxcaDY2E2IbFs',
-    'qiniu_sk' => 'XkNNgwgAnzSgQohuxfVy_J9XXFliMn_Keeehiaz9',
+    'qiniu_ak' => 'lbLyK4Ku6A4gFXXhnxRPA80sNwwYJUDaG_OuHzvy',
+    'qiniu_sk' => 'X4fPCg-nvzhgAx8AhRdqq7KVS4M1-e9aWkxLAmq1',
     // 私有图片bucket
-    'qiniu_priv_bucket' => 'cdd-test-priv',
+    'qiniu_priv_bucket' => 'daluhua-test-pub',
     // 公开图片bucket
-    'qiniu_pub_bucket' => 'cdd-test-pub',
+    'qiniu_pub_bucket' => 'daluhua-test-pub',
     // 私有图片域名
-    'qiniu_priv_host' => 'priv.cdn.test.chedidi.com',
+    'qiniu_priv_host' => 'qj7c3zcbb.hn-bkt.clouddn.com',
     // 公开图片域名
-    'qiniu_pub_host' => 'gz.cdn.test.chedidi.com',
+    'qiniu_pub_host' => 'qj7c3zcbb.hn-bkt.clouddn.com',
     // 共享图片域名,正式测试共用
-    'qiniu_share_host' => 'gz.cdn.chedidi.com',
+    'qiniu_share_host' => 'daluhua-test-pub',
 ];

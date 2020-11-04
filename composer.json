@@ -31,7 +31,8 @@
 		"kucha/ueditor": "*",
         "kartik-v/yii2-widget-fileinput": "dev-master",
         "yiisoft/yii2-elasticsearch": "~2.1.0",
-        "aliyuncs/oss-sdk-php": "^2.4"
+        "aliyuncs/oss-sdk-php": "^2.4",
+        "qiniu/php-sdk": "^7.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

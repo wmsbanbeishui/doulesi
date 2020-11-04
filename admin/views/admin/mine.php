@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\JsBlock;
-//use common\services\QiniuService;
+use common\services\QiniuService;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Admin */
+/* @var $model admin\models\Admin */
 
 $this->title = '修改个人信息';
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,7 +15,7 @@ $avatar = '/static/admin/images/test_icon.png';
 if (!empty($model->avatar)) {
 	$avatar = $model->avatar;
 	if ($avatar[0] != '/') {
-		//$avatar = QiniuService::get_img_url($avatar);
+		$avatar = QiniuService::get_img_url($avatar);
 	}
 }
 

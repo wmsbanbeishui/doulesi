@@ -274,7 +274,7 @@ class AdminController extends AuthController
 
 		if ($model->load($post_data)) {
 			if ($_FILES['avatar']['name']) {
-				$up = FileHelper::qnUpload($_FILES['avatar'], 'admin');
+				$up = FileHelper::qnUpload($_FILES['avatar'], 'upload');
 				if ($up['errno'] == 0) {
 					$model->avatar = $up['key'];
 				}
