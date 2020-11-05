@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
         <div class="col-lg-3">
             <?php echo DatePicker::widget([
                 'name' => 'DoubleEleven[year]',
-                'value' => $model->isNewRecord ? date('Y', strtotime('-3 year')) : $model->year,
+                'value' => $model->isNewRecord ? date('Y', strtotime('-2 year')) : $model->year,
                 'options' => ['id' => 'DoubleElevenDate', 'placeholder' => ''],
                 'pluginOptions' => [
                     'format' => 'yyyy',

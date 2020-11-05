@@ -73,7 +73,7 @@ class DoubleElevenController extends AuthController
                 var_dump($model->getFirstErrors());
                 exit;
             }
-            return $this->redirect(['index']);
+            return $this->redirect(['create']);
         }
 
         return $this->render('create', [
