@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
         <label class="control-label col-lg-1">日期</label>
         <div class="col-lg-3">
             <?php echo DatePicker::widget([
-                'name' => 'DoubleEleven[date]',
+                'name' => 'DoubleEleven[year]',
                 'value' => $model->isNewRecord ? date('Y') : $model->year,
                 'options' => ['id' => 'DoubleElevenDate', 'placeholder' => ''],
                 'pluginOptions' => [
