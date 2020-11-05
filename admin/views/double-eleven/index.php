@@ -29,6 +29,7 @@ $gridColumns = [
 
     <p>
         <?= Html::a('添加', ['create'], ['class' => 'btn btn-success']) ?>
+        <span style="color:red; padding-left: 20px">总计：<?= $sum_price ?></span>
     </p>
 
     <?= Render::gridView([

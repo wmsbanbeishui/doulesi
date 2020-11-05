@@ -2,6 +2,7 @@
 
 namespace admin\controllers;
 
+use common\helpers\Message;
 use Yii;
 use common\models\table\DoubleEleven;
 use admin\models\search\DoubleElevenSearch;
@@ -67,7 +68,11 @@ class DoubleElevenController extends AuthController
     {
         $model = new DoubleEleven();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->save()) {
+                var_dump($model->getFirstErrors());
+                exit;
+            }
             return $this->redirect(['index']);
         }
 
