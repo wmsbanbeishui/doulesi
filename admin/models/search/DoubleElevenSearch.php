@@ -52,7 +52,7 @@ class DoubleElevenSearch extends DoubleEleven
         }
 
         if (empty($this->year)) {
-            $this->year = date('Y');
+            //$this->year = date('Y');
         }
 
         // grid filtering conditions
