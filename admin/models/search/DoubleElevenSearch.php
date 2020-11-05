@@ -71,7 +71,7 @@ class DoubleElevenSearch extends DoubleEleven
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['year' => SORT_DESC, 'id' => SORT_ASC]],
+            'sort' => ['defaultOrder' => ['year' => SORT_DESC, 'id' => SORT_DESC]],
         ]);
 
         return ['dataProvider' => $dataProvider, 'sum_price' => $sum_price];

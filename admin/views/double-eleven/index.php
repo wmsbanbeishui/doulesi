@@ -14,6 +14,7 @@ $gridColumns = [
     'id',
     'year',
     'product',
+    'price',
     'create_time',
     'update_time',
     [
