@@ -1,12 +1,10 @@
 <?php
 
 use common\helpers\Render;
-use common\models\table\Level;
 use common\services\AdminService;
 use common\services\CategoryService;
 use common\services\LevelService;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\search\FinanceSearch */
