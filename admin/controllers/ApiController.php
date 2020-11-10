@@ -63,6 +63,8 @@ class ApiController extends AuthController
         require_once Yii::getAlias('@common/alipay/aop/AopClient.php');
         $config = Helper::getParam('alipay');
 
+        Helper::fLogs($config, 'alipay.log');
+
         $aop = new \AopClient();
         $aop->gatewayUrl = $config['gatewayUrl'];
         $aop->appId = $config['app_id'];
