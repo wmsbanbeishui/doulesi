@@ -6,7 +6,6 @@ use admin\controllers\base\AuthController;
 use common\helpers\Helper;
 use common\models\table\ArticleSearch;
 use common\models\table\Category;
-use common\alipay\aop\request\AlipayTradePagePayRequest;
 use common\models\table\CodeMsg;
 use Yii;
 
