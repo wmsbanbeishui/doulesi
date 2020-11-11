@@ -16,8 +16,6 @@
 if (!defined("AOP_SDK_WORK_DIR"))
 {
 	define("AOP_SDK_WORK_DIR", "/tmp/");
-    //define("AOP_SDK_WORK_DIR", "E:/www/doulesi/common/alipay/lotusphp_runtime/tmp/");
-    //define("AOP_SDK_WORK_DIR", dirname(__FILE__) . "/tmp/");
 }
 /**
  * 是否处于开发模式
