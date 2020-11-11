@@ -73,7 +73,7 @@ class TestController extends ApiController
         $aop->apiVersion = '1.0';
         $aop->format='json';
 
-        $request = new \AlipayTradePayRequest();
+        $request = new \AlipayTradePrecreateRequest();
         $request->setNotifyUrl($config['notify_url']);
         $request->setReturnUrl($config['return_url']);
 
