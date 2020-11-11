@@ -10,6 +10,16 @@ use Yii;
 
 class TestController extends ApiController
 {
+    protected static function authAction()
+    {
+        return [];
+    }
+
+    protected static function normalAction()
+    {
+        return ['ali-pay', 'ali-pay-notify'];
+    }
+
     public function actionIndex()
     {
         echo phpinfo();

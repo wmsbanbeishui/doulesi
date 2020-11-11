@@ -33,7 +33,28 @@ class ApiController extends Controller
             ],
             'authenticator' => [
                 'class' => QueryParamAuth::className(),
+                // 如果当前action不存在以下两个数组内，都会进行权限检查
+                'only' => static::authAction(),
+                'except' => static::normalAction(),
             ]
         ]);
+    }
+
+    /**
+     * 需要登陆的路由
+     * @return array
+     */
+    protected static function authAction()
+    {
+        return [];
+    }
+
+    /**
+     * 不需要登陆的路由
+     * @return array
+     */
+    protected static function normalAction()
+    {
+        return [];
     }
 }
