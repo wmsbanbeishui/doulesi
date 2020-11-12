@@ -18,7 +18,7 @@ class TestController extends ApiController
 
     protected static function normalAction()
     {
-        return ['ali-pay', 'ali-pay-notify'];
+        return ['ali-pay', 'ali-pay-notify', 'ali-pay-code'];
     }
 
     public function actionIndex()
