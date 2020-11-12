@@ -6,6 +6,7 @@ use admin\models\form\TestImportForm;
 use admin\controllers\base\ApiController;
 use common\helpers\Helper;
 use common\models\table\CodeMsg;
+use common\models\table\WorkLog;
 use Yii;
 
 class TestController extends ApiController
@@ -104,11 +105,10 @@ class TestController extends ApiController
 
         if ($result) {
             if ($data['trade_status'] === 'TRADE_SUCCESS') {
-                $model = new CodeMsg();
-                $model->mobile = '17322350852';
-                $model->code = '2222';
-                $model->type = 3;
-                $model->deadline = time() + 120;
+                $model = new WorkLog();
+                $model->plan = '支付宝支付回调';
+                $model->finish = '支付宝PC端支付';
+                $model->date = date('Y-m-d H:i:s');
                 $model->save();
 
                 echo 'success';
