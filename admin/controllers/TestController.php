@@ -79,7 +79,7 @@ class TestController extends ApiController
         $pay_data = [
             'out_trade_no' => Helper::gen_order_no(),
             'product_code' => $config['product_code'],
-            'total_amount' => '2',
+            'total_amount' => '0.01',
             'subject' => '逗乐思',
             'body' => '特蓝图'
         ];
