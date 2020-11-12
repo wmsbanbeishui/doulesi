@@ -57,8 +57,9 @@ class TestController extends ApiController
 
     public function actionAliPay()
     {
-        require_once Yii::getAlias('@common/alipay/aop/request/AlipayTradePagePayRequest.php');
-        require_once Yii::getAlias('@common/alipay/aop/AopClient.php');
+        header("Content-type: text/html; charset=utf-8");
+        require_once Yii::getAlias('@common/alipay/pcweb/aop/request/AlipayTradePagePayRequest.php');
+        require_once Yii::getAlias('@common/alipay/pcweb/aop/AopClient.php');
         $config = Helper::getParam('alipay');
 
         $aop = new \AopClient();
@@ -78,39 +79,25 @@ class TestController extends ApiController
         $pay_data = [
             'out_trade_no' => Helper::gen_order_no(),
             'product_code' => $config['product_code'],
-            'total_amount' => '0.1',
-            'subject' => '商品1',
+            'total_amount' => '2',
+            'subject' => '逗乐思',
             'body' => '特蓝图'
         ];
 
         $pay_data = json_encode($pay_data);
         $request->setBizContent($pay_data);
-        $result = $aop->execute($request);
-        Helper::fLogs($result, 'alipay_test.log');
-
-        $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
-        Helper::fLogs($responseNode, 'alipay_test.log');
-
-        $resultCode = $result->$responseNode->code;
-        if(!empty($resultCode)&&$resultCode == 10000){
-            return [
-                'code' => 0,
-                'msg' => '操作成功'
-            ];
-        } else {
-            return [
-                'code' => 101,
-                'msg' => '操作失败'
-            ];
-        }
+        $result = $aop->pageExecute($request);
+        die($result);
     }
 
     public function actionAliPayNotify()
     {
+        Helper::fLogs('333', 'alipay_notify.log');
         $data = Yii::$app->request->post();
         $config = Helper::getParam('alipay');
         $service_obj = new \AlipayTradeService($config);
         $result = $service_obj->check($data);
+        Helper::fLogs($result, 'alipay_notify.log');
 
         if ($result) {
             if ($data['trade_status'] === 'TRADE_SUCCESS') {
