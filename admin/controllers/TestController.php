@@ -57,11 +57,9 @@ class TestController extends ApiController
 
     public function actionAliPay()
     {
-        require_once Yii::getAlias('@common/alipay/aop/request/AlipayTradePrecreateRequest.php');
+        require_once Yii::getAlias('@common/alipay/aop/request/AlipayTradePagePayRequest.php');
         require_once Yii::getAlias('@common/alipay/aop/AopClient.php');
         $config = Helper::getParam('alipay');
-
-        Helper::fLogs($config, 'alipay.log');
 
         $aop = new \AopClient();
         $aop->gatewayUrl = $config['gatewayUrl'];
@@ -71,8 +69,9 @@ class TestController extends ApiController
         $aop->signType = $config['sign_type'];
         $aop->apiVersion = '1.0';
         $aop->format='json';
+        $aop->postCharset = 'UTF-8';
 
-        $request = new \AlipayTradePrecreateRequest();
+        $request = new \AlipayTradePagePayRequest();
         $request->setNotifyUrl($config['notify_url']);
         $request->setReturnUrl($config['return_url']);
 
