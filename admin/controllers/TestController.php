@@ -92,8 +92,11 @@ class TestController extends ApiController
 
     public function actionAliPayNotify()
     {
-        Helper::fLogs('333', 'alipay_notify.log');
+        require_once Yii::getAlias('@common/alipay/pcweb/pagepay/service/AlipayTradeService.php');
+
         $data = Yii::$app->request->post();
+        Helper::fLogs($data, 'alipay_notify.log');
+
         $config = Helper::getParam('alipay');
         $service_obj = new \AlipayTradeService($config);
         $result = $service_obj->check($data);
