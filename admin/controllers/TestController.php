@@ -18,7 +18,7 @@ class TestController extends ApiController
 
     protected static function normalAction()
     {
-        return ['ali-pay', 'ali-pay-notify', 'ali-pay-code'];
+        return ['ali-pay', 'ali-pay-notify', 'ali-pay-code', 'qrcode'];
     }
 
     public function actionIndex()
@@ -122,7 +122,6 @@ class TestController extends ApiController
     public function actionAliPayCode()
     {
         header("Content-type: text/html; charset=utf-8");
-        require_once Yii::getAlias('@common/phpqrcode/phpqrcode.php');
         require_once Yii::getAlias('@common/alipay/pcweb/aop/request/AlipayTradePrecreateRequest.php');
         require_once Yii::getAlias('@common/alipay/pcweb/aop/AopClient.php');
         $config = Helper::getParam('alipay');
@@ -159,9 +158,10 @@ class TestController extends ApiController
         $resultCode = $result->$responseNode->code;
         if(!empty($resultCode) && $resultCode == 10000){
 
+            $http_server = Helper::get_request_host();
             $qr_code_url = $result->$responseNode->qr_code;
 
-            $qr_code_url = \QRcode::png($qr_code_url);
+            $qr_code_url = $http_server.'/test/qrcode?data='.$qr_code_url;
             return [
                 'code' => 0,
                 'msg' => '',
