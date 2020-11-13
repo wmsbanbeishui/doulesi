@@ -161,7 +161,7 @@ class TestController extends ApiController
             $http_server = Helper::get_request_host();
             $qr_code_url = $result->$responseNode->qr_code;
 
-            $qr_code_url = $http_server.'/test/qrcode?data='.$qr_code_url;
+            $qr_code_url = $http_server.'/test/qrcode?data='.urlencode($qr_code_url);
             return [
                 'code' => 0,
                 'msg' => '',
@@ -183,10 +183,12 @@ class TestController extends ApiController
      */
     public function actionQrcode() {
         $request = Yii::$app->request;
+        $data = $request->get('data');
+        Helper::fLogs($data, 'qrcode.log');
 
         require_once Yii::getAlias('@common/phpqrcode/phpqrcode.php');
 
-        \QRcode::png($request->get('data'));
+        \QRcode::png($request->get('data'), false, $level = QR_ECLEVEL_L, $size = 5, $margin = 4);
         exit(0);
     }
 }
