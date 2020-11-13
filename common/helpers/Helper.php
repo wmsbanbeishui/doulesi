@@ -638,4 +638,19 @@ class Helper
 
 		return $week;
 	}
+
+    /**
+     * 获取当前http请求域名
+     * @return string
+     * @author luotaipeng
+     */
+    public static function get_request_host($host = null, $request_scheme = null) {
+        if (!$host) {
+            $host = $_SERVER['HTTP_HOST'];
+        }
+        if (!$request_scheme) {
+            $request_scheme = $_SERVER['REQUEST_SCHEME'];
+        }
+        return $request_scheme.'://'.$host;
+    }
 }
