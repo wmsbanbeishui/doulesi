@@ -5,8 +5,8 @@ namespace admin\controllers;
 use admin\models\form\TestImportForm;
 use admin\controllers\base\ApiController;
 use common\helpers\Helper;
-use common\models\table\CodeMsg;
-use common\models\table\WorkLog;
+use common\services\TestService;
+use yii\helpers\FileHelper;
 use Yii;
 
 class TestController extends ApiController
@@ -18,9 +18,12 @@ class TestController extends ApiController
 
     protected static function normalAction()
     {
-        return ['ali-pay', 'ali-pay-notify', 'ali-pay-code', 'qrcode'];
+        return ['ali-pay', 'ali-pay-notify', 'ali-pay-code', 'qrcode', 'test'];
     }
 
+    /**
+     * 打印 phpinfo信息
+     */
     public function actionIndex()
     {
         echo phpinfo();
@@ -28,6 +31,10 @@ class TestController extends ApiController
         //return $this->render('index');
     }
 
+    /**
+     * 测试导入
+     * @return string|\yii\web\Response
+     */
     public function actionImport()
     {
         $request = Yii::$app->getRequest();
@@ -43,139 +50,44 @@ class TestController extends ApiController
         }
     }
 
+    /**
+     * 下载文件
+     * @return \yii\console\Response|\yii\web\Response
+     */
     public function actionImportTemplate()
     {
         $response = Yii::$app->getResponse();
         return $response->sendFile(Yii::getAlias('@webroot/import_template.xlsx'));
     }
 
-    public function actionTest()
-    {
-        $finish = '已完成123';
-        pclose(popen('php cli2cgi.php &', 'r'));
-        echo 'aaa'.PHP_EOL;
-    }
-
+    /**
+     * 支付宝PC端支付
+     * @throws \Exception
+     */
     public function actionAliPay()
     {
-        header("Content-type: text/html; charset=utf-8");
-        require_once Yii::getAlias('@common/alipay/pcweb/aop/request/AlipayTradePagePayRequest.php');
-        require_once Yii::getAlias('@common/alipay/pcweb/aop/AopClient.php');
-        $config = Helper::getParam('alipay');
-
-        $aop = new \AopClient();
-        $aop->gatewayUrl = $config['gatewayUrl'];
-        $aop->appId = $config['app_id'];
-        $aop->rsaPrivateKey = $config['merchant_private_key'];
-        $aop->alipayrsaPublicKey = $config['alipay_public_key'];
-        $aop->signType = $config['sign_type'];
-        $aop->apiVersion = '1.0';
-        $aop->format='json';
-        $aop->postCharset = 'UTF-8';
-
-        $request = new \AlipayTradePagePayRequest();
-        $request->setNotifyUrl($config['notify_url']);
-        $request->setReturnUrl($config['return_url']);
-
-        $pay_data = [
-            'out_trade_no' => Helper::gen_order_no(),
-            'product_code' => $config['product_code'],
-            'total_amount' => '0.01',
-            'subject' => '逗乐思',
-            'body' => '特蓝图'
-        ];
-
-        $pay_data = json_encode($pay_data);
-        $request->setBizContent($pay_data);
-        $result = $aop->pageExecute($request);
-        die($result);
+        return TestService::aliPay();
     }
 
+    /**
+     * 支付宝支付回调
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\log\LogRuntimeException
+     */
     public function actionAliPayNotify()
     {
-        require_once Yii::getAlias('@common/alipay/pcweb/pagepay/service/AlipayTradeService.php');
-
-        $data = Yii::$app->request->post();
-        Helper::fLogs($data, 'alipay_notify.log');
-
-        $config = Helper::getParam('alipay');
-        $service_obj = new \AlipayTradeService($config);
-        $result = $service_obj->check($data);
-        Helper::fLogs($result, 'alipay_notify.log');
-
-        if ($result) {
-            if ($data['trade_status'] === 'TRADE_SUCCESS') {
-                $model = new WorkLog();
-                $model->plan = '支付宝支付回调';
-                $model->finish = '支付宝PC端支付';
-                $model->date = date('Y-m-d H:i:s');
-                $model->save();
-
-                echo 'success';
-            }
-        } else {
-            echo '非法操作';
-        }
-
+        return TestService::aliPayNotify();
     }
 
+    /**
+     * 支付宝当面扫码支付
+     * @return array
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\log\LogRuntimeException
+     */
     public function actionAliPayCode()
     {
-        header("Content-type: text/html; charset=utf-8");
-        require_once Yii::getAlias('@common/alipay/pcweb/aop/request/AlipayTradePrecreateRequest.php');
-        require_once Yii::getAlias('@common/alipay/pcweb/aop/AopClient.php');
-        $config = Helper::getParam('alipay');
-
-        $aop = new \AopClient();
-        $aop->gatewayUrl = $config['gatewayUrl'];
-        $aop->appId = $config['app_id'];
-        $aop->rsaPrivateKey = $config['merchant_private_key'];
-        $aop->alipayrsaPublicKey = $config['alipay_public_key'];
-        $aop->signType = $config['sign_type'];
-        $aop->apiVersion = '1.0';
-        $aop->format='json';
-        $aop->postCharset = 'UTF-8';
-
-        $request = new \AlipayTradePrecreateRequest();
-        $request->setNotifyUrl($config['notify_url']);
-        $request->setReturnUrl($config['return_url']);
-
-        $pay_data = [
-            'out_trade_no' => Helper::gen_order_no(),
-            'product_code' => 'FACE_TO_FACE_PAYMENT',
-            'total_amount' => '0.01',
-            'subject' => '逗乐思',
-            'body' => '特蓝图',
-            'timeout_express' => '5m',  //过期时间
-        ];
-
-        $pay_data = json_encode($pay_data);
-        $request->setBizContent($pay_data);
-        $result = $aop->execute($request);
-        Helper::fLogs($result, 'alipay_code.log');
-
-        $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
-        $resultCode = $result->$responseNode->code;
-        if(!empty($resultCode) && $resultCode == 10000){
-
-            $http_server = Helper::get_request_host();
-            $qr_code_url = $result->$responseNode->qr_code;
-
-            $qr_code_url = $http_server.'/test/qrcode?data='.urlencode($qr_code_url);
-            return [
-                'code' => 0,
-                'msg' => '',
-                'data' => [
-                    'qr_code_url' => $qr_code_url
-                ]
-            ];
-
-        } else {
-            return [
-                'code' => 101,
-                'msg' => '支付失败',
-            ];
-        }
+        return TestService::aliPayCode();
     }
 
     /**
@@ -190,5 +102,52 @@ class TestController extends ApiController
 
         \QRcode::png($request->get('data'), false, $level = QR_ECLEVEL_L, $size = 5, $margin = 4);
         exit(0);
+    }
+
+    public function actionTest()
+    {
+        $request = Yii::$app->getRequest();
+        $url = $request->post('url'); // 更新时的url
+        $fname = $request->post('fname');
+        $cid = $request->post('cid');
+
+        $key = '';
+
+        if (isset($_FILES['file']['name'])) {
+
+            $path_parts = pathinfo($url);
+            $path = $path_parts['dirname'];
+            $upload = \common\helpers\FileHelper::fileUpload($_FILES['file'], $path, 1024 * 1024);
+
+            if ($upload['errno'] == 0) {
+                $key = $upload['key'];
+            } else {
+                return [
+                    'code' => 102,
+                    'msg' => $upload['msg']
+                ];
+            }
+        } else {
+            return [
+                'code' => 103,
+                'msg' => '请上传图片'
+            ];
+        }
+
+        if (empty($key)) {
+            return [
+                'code' => 104,
+                'msg' => '请上传文件'
+            ];
+        }
+
+        return [
+            'code' => 0,
+            'msg' => '',
+            'data' => [
+                'url' => $key,
+                //'full_url' => Helper::getImageUrl($key)
+            ]
+        ];
     }
 }

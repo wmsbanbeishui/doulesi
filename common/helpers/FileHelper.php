@@ -59,4 +59,35 @@ class FileHelper {
 		}
 		return ['errno' => 0, 'key' => $ret];
 	}
+
+    /**
+     * 文件上传，不限制文件类型
+     * @param $file
+     * @param string $path
+     * @param int $limit_size
+     * @return array
+     */
+    public static function fileUpload($file, $path = 'upload', $limit_size = 1024000)
+    {
+        $temp = explode(".", $file["name"]);
+        $extension = strtolower(end($temp));
+
+        if ($file['size'] > $limit_size) {
+            return ['errno' => 103, 'msg' => 'file size too large'];
+        }
+
+        $file_name = sprintf('%s_%s.%s', date('Ymd_His'), mt_rand(100, 999), $extension);
+        $file_name = $file['name'];
+        $dir = Yii::getAlias('@webroot/upload/') . $path;
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        $file_path = $dir . '/' . $file_name;
+        if (move_uploaded_file($file["tmp_name"], $file_path)) {
+            return ['errno' => 0, 'file_path' => $file_path, 'key' => '/' . $path . '/' . $file_name, 'file_name' => $file_name];
+        } else {
+            return ['errno' => 500, 'msg' => 'upload erron'];
+        }
+    }
 }
