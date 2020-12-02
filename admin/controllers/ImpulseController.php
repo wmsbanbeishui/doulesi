@@ -36,11 +36,12 @@ class ImpulseController extends AuthController
     public function actionIndex()
     {
         $searchModel = new ImpulseSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $data = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['dataProvider'],
+            'sum_amount' => $data['sum_amount'],
         ]);
     }
 

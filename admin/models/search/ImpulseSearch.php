@@ -34,11 +34,8 @@ class ImpulseSearch extends Impulse
     }
 
     /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
+     * @param $params
+     * @return array
      */
     public function search($params)
     {
@@ -55,21 +52,39 @@ class ImpulseSearch extends Impulse
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            return $dataProvider;
+            echo '111';exit;
+        }
+
+        if (empty($this->date)) {
+            $start = date('Y/m/01');
+            $end = date('Y/m/t');
+            $this->date = $start.' - '.$end;
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'admin_id' => $this->admin_id,
-            'date' => $this->date,
             'amount' => $this->amount,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'type', $this->type]);
+        $query->timeRangeFilter('date', $this->date);
 
-        return $dataProvider;
+        $query->andFilterWhere(['like', 'remark', $this->remark]);
+
+        $sum_query = clone $query;
+        $sum_query->select(['sum_amount' => 'SUM(amount)']);
+        $sum_amount = $sum_query->scalar();
+
+        //echo $query->createCommand()->getRawSql();exit;
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            //'pagination' => ['pageSize' => 15],
+            'sort' => ['defaultOrder' => ['date' => SORT_DESC, 'admin_id' => SORT_DESC, 'id' => SORT_ASC]],
+        ]);
+
+        return ['dataProvider' => $dataProvider, 'sum_amount' => $sum_amount];
     }
 }
