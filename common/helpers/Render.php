@@ -36,7 +36,8 @@ class Render
 		}
 
 		$gridDefaultConfig = [
-			'layout' => "{toolbar}{summary}\n{items}\n{pager}",
+			'layout' => "{toolbar}{pager}{summary}\n{items}\n{pager}",
+			//'layout' => "{toolbar}{summary}\n{items}\n{pager}",
 			'emptyTextOptions' => [
 				'class' => ['empty'],
 				'style' => ['text-align' => 'center'],
@@ -59,7 +60,7 @@ class Render
 				'lastPageLabel' => '尾页',
 				'options' => [
 					'class' => ['pagination', 'pagination-sm'],
-					'style' => ['margin-top' => '0', 'margin-bottom' => '-4px'],
+					'style' => ['margin-top' => '2px', 'margin-bottom' => '-4px'],
 				],
 				'pageSizeList' => [10, 15, 20, 30, 50, 100],
 				'pageSizeOptions' => [

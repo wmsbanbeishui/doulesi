@@ -2,7 +2,7 @@
 Yii::$container->set('yii\data\Pagination', [
 	'pageParam' => 'page',
 	'pageSizeParam' => 'pageSize',
-	'defaultPageSize' => 20,
+	'defaultPageSize' => 50,
 	'validatePage' => false,
 	'pageSizeLimit' => [1, 100],
 ]);

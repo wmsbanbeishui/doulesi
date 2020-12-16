@@ -104,6 +104,7 @@ if (strpos($_SERVER['HTTP_HOST'], '.test.')) {
 	<?php endforeach ?>
 </section>
 <iframe name="workSpace" src="/index/index" class="container" id="myiframe" scrolling="no" onload="changeFrameHeight()"></iframe>
+<div class="bottom-record">备案号:粤ICP备2020133048号</div>
 </body>
 <script src="/static/admin/js/index_1.js" type="text/javascript" charset="utf-8"></script>
 </html>

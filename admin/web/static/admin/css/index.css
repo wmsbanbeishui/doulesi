@@ -94,6 +94,20 @@ img {
 	z-index: 100;
 }
 
+.bottom-record {
+	position: fixed;
+	bottom: 0;
+	left: 100px;
+	transform: translateX(-50%);
+	width: 200px;
+	height: 25px;
+	line-height: 25px;
+	z-index: 100;
+	background: #ddd;
+	text-align: center;
+	font-size: 10px;
+}
+
 .top-logo {
 	display: block;
 	float: left;
