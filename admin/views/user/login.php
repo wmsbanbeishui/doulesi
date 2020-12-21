@@ -57,5 +57,5 @@ BootstrapAsset::register($this);
 	</div>
 
 	<?php ActiveForm::end(); ?>
-
+    <a target="_blank" style="display: block; text-align: center" href="https://beian.miit.gov.cn">备案号:粤ICP备2020133048号</a>
 </div>
