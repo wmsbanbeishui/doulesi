@@ -453,7 +453,7 @@ class Helper
 	 * @return string
 	 * @author luotaipeng
 	 */
-	public function gen_order_no($mch_id = null, $prefix = null, $suffix = null)
+	public static function gen_order_no($mch_id = null, $prefix = null, $suffix = null)
 	{
 		return $prefix.$mch_id.date('YmdHis').rand(100, 999).$suffix;
 	}
@@ -652,5 +652,15 @@ class Helper
             $request_scheme = $_SERVER['REQUEST_SCHEME'];
         }
         return $request_scheme.'://'.$host;
+    }
+
+    public static function uuid($prefix = '')
+    {
+        $chars = md5(uniqid(mt_rand(), true));
+        $uuid = substr($chars, 0, 8) . '-';
+        $uuid .= substr($chars, 8, 4) . '-';
+        $uuid .= substr($chars, 12, 4) . '-';
+        $uuid .= substr($chars, 16, 4);
+        return $prefix . $uuid;
     }
 }

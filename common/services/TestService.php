@@ -38,12 +38,20 @@ class TestService
             'product_code' => $config['product_code'],
             'total_amount' => '0.01',
             'subject' => '逗乐思',
-            'body' => '特蓝图'
+            'body' => '逗乐思'
         ];
 
         $pay_data = json_encode($pay_data);
         $request->setBizContent($pay_data);
         $result = $aop->pageExecute($request);
+        $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
+        $resultCode = $result->$responseNode->code;
+        if(!empty($resultCode)&&$resultCode == 10000){
+            echo "成功";
+        } else {
+            echo "失败";
+        }
+
         return $result;
         //die($result);
     }

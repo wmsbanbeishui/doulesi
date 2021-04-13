@@ -38,7 +38,8 @@
         "yiisoft/yii2-elasticsearch": "~2.1.0",
         "aliyuncs/oss-sdk-php": "^2.4",
         "qiniu/php-sdk": "^7.3",
-        "alibabacloud/client": "^1.5"
+        "alibabacloud/client": "^1.5",
+        "getuilaboratory/getui-pushapi-php-client-v2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

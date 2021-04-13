@@ -424,7 +424,15 @@ class AopClient
     {
 
         $sHtml = "<form id='alipaysubmit' name='alipaysubmit' action='" . $this->gatewayUrl . "?charset=" . trim($this->postCharset) . "' method='POST'>";
-        while (list ($key, $val) = each($para_temp)) {
+        /*while (list ($key, $val) = each($para_temp)) {
+            if (false === $this->checkEmpty($val)) {
+                //$val = $this->characet($val, $this->postCharset);
+                $val = str_replace("'", "&apos;", $val);
+                //$val = str_replace("\"","&quot;",$val);
+                $sHtml .= "<input type='hidden' name='" . $key . "' value='" . $val . "'/>";
+            }
+        }*/
+        foreach ($para_temp as $key => $val) {
             if (false === $this->checkEmpty($val)) {
                 //$val = $this->characet($val, $this->postCharset);
                 $val = str_replace("'", "&apos;", $val);

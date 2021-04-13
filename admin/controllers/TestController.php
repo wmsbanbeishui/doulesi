@@ -5,6 +5,9 @@ namespace admin\controllers;
 use admin\models\form\TestImportForm;
 use admin\controllers\base\ApiController;
 use common\helpers\Helper;
+use common\models\table\Answer;
+use common\models\table\ArticleSearch;
+use common\models\table\Question;
 use common\services\TestService;
 use yii\helpers\FileHelper;
 use Yii;
@@ -93,7 +96,8 @@ class TestController extends ApiController
     /**
      * 生成支付二维码图片
      */
-    public function actionQrcode() {
+    public function actionQrcode()
+    {
         $request = Yii::$app->request;
         $data = $request->get('data');
         Helper::fLogs($data, 'qrcode.log');
@@ -104,50 +108,124 @@ class TestController extends ApiController
         exit(0);
     }
 
+    // 获取问卷调查数据列表
+    public function actionGetQuestions()
+    {
+        return Question::find()
+            ->with(['options'])
+            ->asArray()
+            ->all();
+    }
+
+    // 获取某个用户的问卷答题情况
+    public function actionGetUserAnswer($user_id)
+    {
+        // 问卷调查数据列表
+        $question_list = Question::find()
+            ->with(['options'])
+            ->asArray()
+            ->all();
+        //var_dump($question_list);exit;
+
+        $answer_list = Answer::find()
+            ->where(['user_id' => $user_id])
+            ->asArray()
+            ->all();
+        //var_dump($answer_list);exit;
+
+        foreach ($question_list as $key => &$question){
+
+            foreach ($question['options'] as $k => &$option) {
+                $option['selected'] = '0';
+
+                foreach ($answer_list as $index =>$answer) {
+                    if ($answer['question_id'] == $question['id'] && $answer['option_id'] == $option['id']) {
+                        $question_list[$key]['options'][$k]['selected'] = '1';
+                        unset($answer_list[$index]);
+                    }
+                }
+            }
+            unset($option);
+        }
+        unset($question);
+
+        return $question_list;
+    }
+
+    // 获取问卷答题统计
+    public function actionGetAnswerCount()
+    {
+        // 问卷调查数据列表
+        $question_list = Question::find()
+            ->with(['options'])
+            ->asArray()
+            ->all();
+        //var_dump($question_list);exit;
+
+        $answer_list = Answer::find()
+            ->select(['question_id', 'option_id', 'COUNT(id) as num'])
+            ->groupBy(['option_id'])
+            ->asArray()
+            ->all();
+        //var_dump($answer_list);exit;
+
+        foreach ($question_list as $key => &$question){
+
+            foreach ($question['options'] as $k => &$option) {
+                $option['count'] = '0';
+
+                foreach ($answer_list as $index =>$answer) {
+                    if ($answer['question_id'] == $question['id'] && $answer['option_id'] == $option['id']) {
+                        $question_list[$key]['options'][$k]['count'] = $answer['num'];
+                        unset($answer_list[$index]);
+                    }
+                }
+            }
+            unset($option);
+        }
+        unset($question);
+
+        return $question_list;
+    }
+
     public function actionTest()
     {
-        $request = Yii::$app->getRequest();
-        $url = $request->post('url'); // 更新时的url
-        $fname = $request->post('fname');
-        $cid = $request->post('cid');
+        $user_id = 1;
 
-        $key = '';
+        // 问卷调查数据列表
+        $question_list = Question::find()
+            ->with(['options'])
+            ->asArray()
+            ->all();
+        //var_dump($question_list);exit;
 
-        if (isset($_FILES['file']['name'])) {
+        $answer_list = Answer::find()
+            ->select(['question_id', 'option_id', 'COUNT(id) as num'])
+            ->groupBy(['option_id'])
+            ->asArray()
+            ->all();
+        //var_dump($answer_list);exit;
 
-            $path_parts = pathinfo($url);
-            $path = $path_parts['dirname'];
-            $upload = \common\helpers\FileHelper::fileUpload($_FILES['file'], $path, 1024 * 1024);
+        foreach ($question_list as $key => &$question){
 
-            if ($upload['errno'] == 0) {
-                $key = $upload['key'];
-            } else {
-                return [
-                    'code' => 102,
-                    'msg' => $upload['msg']
-                ];
+            foreach ($question['options'] as $k => &$option) {
+                $option['count'] = '0';
+
+                foreach ($answer_list as $index =>$answer) {
+                    if ($answer['question_id'] == $question['id'] && $answer['option_id'] == $option['id']) {
+                        $question_list[$key]['options'][$k]['count'] = $answer['num'];
+                        unset($answer_list[$index]);
+                    }
+                }
             }
-        } else {
-            return [
-                'code' => 103,
-                'msg' => '请上传图片'
-            ];
+            unset($option);
         }
+        unset($question);
 
-        if (empty($key)) {
-            return [
-                'code' => 104,
-                'msg' => '请上传文件'
-            ];
-        }
+        var_dump($question_list);
 
-        return [
-            'code' => 0,
-            'msg' => '',
-            'data' => [
-                'url' => $key,
-                //'full_url' => Helper::getImageUrl($key)
-            ]
-        ];
+
+
+        exit;
     }
 }
