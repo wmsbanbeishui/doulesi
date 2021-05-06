@@ -12,7 +12,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
-	public $verifyCode;
+	//public $verifyCode;
 
     private $_user = false;
 
@@ -24,7 +24,7 @@ class LoginForm extends Model
 		return [
 			'username' => '用户名',
 			'password' => '密码',
-			'verifyCode' => '验证码',
+			//'verifyCode' => '验证码',
 		];
 	}
 
@@ -35,10 +35,10 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            [['username', 'password', 'verifyCode'], 'required'],
+            [['username', 'password'], 'required'],
 			['username', 'string', 'max' => 40],
             ['password', 'validatePassword'],
-			[['verifyCode'], 'captcha', 'captchaAction' => '/site/captcha'],
+			//[['verifyCode'], 'captcha', 'captchaAction' => '/site/captcha'],
         ];
     }
 

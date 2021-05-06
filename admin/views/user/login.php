@@ -47,10 +47,10 @@ BootstrapAsset::register($this);
 
 	<?= $form->field($model, 'password')->passwordInput() ?>
 
-	<?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+	<?php /*= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
 		'captchaAction' => '/site/captcha',
 		'template' => '<div class="row"><div class="col-xs-4">{input}</div><div class="col-xs-8">{image}</div></div>'
-	]) ?>
+	]) */?>
 
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary btn-block">登录</button>
